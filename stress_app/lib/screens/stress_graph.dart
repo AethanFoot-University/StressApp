@@ -8,9 +8,9 @@ import 'package:stress_app/data/StressLevel.dart';
 class StressGraph extends StatelessWidget {
 
 
-  final List<StressLevel> data;
+   List<StressLevel> data;
 
-  StressGraph({this.data=null});
+  StressGraph( this.data);
 
   List<FlSpot> getPlotData(){
     List<FlSpot> retList = new List();
@@ -26,6 +26,8 @@ class StressGraph extends StatelessWidget {
 
 
   Widget drawGraph(){
+
+    print("Drawing graph");
       if(this.data ==null){
         return Column(
             children:[Text("There is no data to show"),

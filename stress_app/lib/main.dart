@@ -22,17 +22,39 @@ class MyApp extends StatelessWidget {
     return [].addAll(_levels);
   }
 
+  static List<Function()> _listeners = new List();
+
+  static _runListeners() {
+    print("runnign list");
+    for (Function() f in _listeners) {
+      try {
+        f();
+      }
+      catch (e) {
+        print(e);
+      }
+    }
+  }
+
+  static addListener(Function() func){
+    _listeners.add(func);
+  }
+
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
 
-    var ret = CSVReader("bla ad").getStressLevels();
 
+    var ret = CSVReader("bla ad").getStressLevels();
 
     ret.then((levels)=>{
       _levels = levels,
-      _ready = (_levels ==null)
+      _ready = (_levels !=null),
+      print("Then has run:"),
+      print(_levels.toString()),
+      print(_ready),
+      _runListeners()
     });
 
     return MaterialApp(
