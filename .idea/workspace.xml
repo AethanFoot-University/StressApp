@@ -5,14 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8b0aa77-142b-49c3-aec3-aa9c1cef836e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/stress_app/lib/assets/images/meditate.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stress_app/lib/GraphAnalysisView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/stress_app/lib/GraphAnalysisView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stress_app/lib/StressGraph.dart" beforeDir="false" afterPath="$PROJECT_DIR$/stress_app/lib/StressGraph.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stress_app/lib/data/StressLevel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/stress_app/lib/data/StressLevel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stress_app/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/stress_app/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stress_app/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/stress_app/pubspec.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stress_app/lib/resources/com.samsung.shealth.tracker.heart_rate.202002211329.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stress_app/lib/screens/account_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stress_app/lib/screens/app_drawer.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stress_app/lib/screens/availible_activities.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stress_app/lib/screens/graph_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stress_app/lib/screens/help_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stress_app/lib/screens/homepage.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stress_app/lib/screens/stress_breakdown_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stress_app/lib/screens/stress_relief_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stress_app/lib/tools/CSVReader.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stress_app/lib/tools/tester.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stress_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/stress_app/lib/main.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,22 +29,43 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/stress_app/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
+            <state relative-caret-position="285">
+              <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/stress_app/lib/StressLevelOverview.dart">
+        <entry file="file://$PROJECT_DIR$/../../flutterSDKs/flutter/packages/flutter/lib/src/widgets/framework.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+            <state relative-caret-position="215">
+              <caret line="976" column="19" selection-start-line="976" selection-start-column="19" selection-end-line="976" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/stress_app/lib/screens/homepage.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/stress_app/lib/screens/app_drawer.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="37" column="24" lean-forward="true" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
               <folding>
-                <element signature="e#0#39#0" expanded="true" />
+                <element signature="e#0#40#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -58,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/stress_app/lib/StressGraph.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="339">
-              <caret line="105" column="35" lean-forward="true" selection-start-line="105" selection-start-column="35" selection-end-line="105" selection-end-column="35" />
+              <caret line="105" column="35" selection-start-line="105" selection-start-column="35" selection-end-line="105" selection-end-column="35" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -74,7 +99,7 @@
         <entry file="file://$PROJECT_DIR$/stress_app/lib/data/StressLevel.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="5" column="18" lean-forward="true" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+              <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -123,6 +148,7 @@
       <find>index</find>
       <find>Date</find>
       <find>show</find>
+      <find>avg</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -132,11 +158,13 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/stress_app/lib/StressLevelOverview.dart" />
-        <option value="$PROJECT_DIR$/stress_app/lib/main.dart" />
         <option value="$PROJECT_DIR$/stress_app/lib/GraphAnalysisView.dart" />
         <option value="$PROJECT_DIR$/stress_app/lib/data/StressLevel.dart" />
         <option value="$PROJECT_DIR$/stress_app/pubspec.yaml" />
         <option value="$PROJECT_DIR$/stress_app/lib/StressGraph.dart" />
+        <option value="$PROJECT_DIR$/stress_app/lib/screens/app_drawer.dart" />
+        <option value="$PROJECT_DIR$/stress_app/lib/screens/homepage.dart" />
+        <option value="$PROJECT_DIR$/stress_app/lib/main.dart" />
       </list>
     </option>
   </component>
@@ -163,6 +191,19 @@
               <item name="StressApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="StressApp" type="462c0819:PsiDirectoryNode" />
               <item name="stress_app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="StressApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="StressApp" type="462c0819:PsiDirectoryNode" />
+              <item name="stress_app" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="StressApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="StressApp" type="462c0819:PsiDirectoryNode" />
+              <item name="stress_app" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="screens" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -232,12 +273,12 @@
       <workItem from="1583254246080" duration="1526000" />
       <workItem from="1583851185626" duration="1614000" />
       <workItem from="1583852847170" duration="7797000" />
-      <workItem from="1583862248698" duration="1641000" />
+      <workItem from="1583862248698" duration="2449000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23476000" />
+    <option name="totallyTimeSpent" value="24284000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -305,13 +346,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stress_app/lib/main.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stress_app/lib/StressLevelOverview.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -356,16 +390,50 @@
     <entry file="file://$PROJECT_DIR$/stress_app/lib/data/StressLevel.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="5" column="18" lean-forward="true" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/stress_app/lib/StressGraph.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="339">
-          <caret line="105" column="35" lean-forward="true" selection-start-line="105" selection-start-column="35" selection-end-line="105" selection-end-column="35" />
+          <caret line="105" column="35" selection-start-line="105" selection-start-column="35" selection-end-line="105" selection-end-column="35" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stress_app/lib/screens/homepage.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stress_app/lib/screens/app_drawer.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="37" column="24" lean-forward="true" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../flutterSDKs/flutter/packages/flutter/lib/src/widgets/framework.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="976" column="19" selection-start-line="976" selection-start-column="19" selection-end-line="976" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stress_app/lib/main.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>

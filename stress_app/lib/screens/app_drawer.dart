@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stress_app/screens/availible_activities.dart';
 
+import '../GraphAnalysisView.dart';
 import 'account_page.dart';
 import 'graph_page.dart';
 
@@ -54,7 +55,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   title: Text('Graph Breakdown'),
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => GraphPage()));
+                        MaterialPageRoute(builder: (context) => GraphAnalysisView()));
                   },
                 ),
                 ListTile(
