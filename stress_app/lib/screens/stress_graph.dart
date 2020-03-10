@@ -80,6 +80,11 @@ class StressGraph extends StatelessWidget {
 
 
   LineChartData mainData() {
+
+    double max =0;
+    //data.sort((a,b)=>a.stressLevel.compareTo(b.stressLevel));
+    for(StressLevel lvl in data) max = (lvl.stressLevel>max)? lvl.stressLevel : max;
+
     return LineChartData(
       gridData: FlGridData(
         show: true,
@@ -126,11 +131,7 @@ class StressGraph extends StatelessWidget {
             fontSize: 15,
           ),
           getTitles: (value) {
-            if(value< data.length){
-              return data[value.toInt()].stressLevel.toString();
-            }
-            return '';
-
+              return value.toInt().toString();
           },
           reservedSize: 28,
           margin: 12,
@@ -141,7 +142,7 @@ class StressGraph extends StatelessWidget {
       minX: 0,
       maxX: data.length*1.0,
       minY: 0,
-      maxY: 11,
+      maxY: max,
       lineBarsData: [
         LineChartBarData(
           spots: getPlotData(),
