@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stress_app/tools/CSVReader.dart';
+import 'package:stress_app/screens/app_drawer.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -17,15 +17,11 @@ class _MyHomePageState extends State<MyHomePage> {
   static List<Widget> _widgetOptions = <Widget>[
     HomePageBody(),
     Text(
-      'Index 1: Breakdown Page',
+      'Index 1: Excercises Page',
       style: optionStyle,
     ),
     Text(
-      'Index 2: Stress Relief',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 3: Help Page',
+      'Index 2: Grid Page',
       style: optionStyle,
     ),
   ];
@@ -39,33 +35,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SideDrawer(),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.purple,
-        unselectedItemColor: Colors.grey,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.show_chart),
-            title: Text('Stress Breakdown'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.face),
-            title: Text('Stress Relief'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.help),
-            title: Text('Help'),
-          ),
-        ],
-        onTap: _onItemTapped,
-      ),
+      bottomNavigationBar: BottomBar(this),
     );
   }
 }
@@ -83,6 +57,61 @@ class HomePageBody extends StatelessWidget {
             child: Text('Index 0: Homepage', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class BottomBar extends StatelessWidget {
+  final _MyHomePageState parent;
+
+  BottomBar(this.parent);
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomAppBar(
+      child: Ink(
+        color: Colors.purple,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            IconButton(
+              color: Colors.white,
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            ),
+            IconButton(
+              color: parent._selectedIndex == 0 ? Colors.grey : Colors.white,
+              splashColor: Colors.transparent,
+              iconSize: parent._selectedIndex == 0 ? 30 : 24,
+              icon: Icon(Icons.home),
+              onPressed: () {
+                parent._onItemTapped(0);
+              },
+            ),
+            IconButton(
+              color: parent._selectedIndex == 1 ? Colors.grey : Colors.white,
+              splashColor: Colors.transparent,
+              iconSize: parent._selectedIndex == 1 ? 30 : 24,
+              icon: Icon(Icons.healing),
+              onPressed: () {
+                parent._onItemTapped(1);
+              },
+            ),
+            IconButton(
+              color: parent._selectedIndex == 2 ? Colors.grey : Colors.white,
+              splashColor: Colors.transparent,
+              iconSize: parent._selectedIndex == 2 ? 30 : 24,
+              icon: Icon(Icons.show_chart),
+              onPressed: () {
+                parent._onItemTapped(2);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
