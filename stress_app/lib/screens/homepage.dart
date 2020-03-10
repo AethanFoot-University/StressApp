@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:stress_app/main.dart';
 import 'package:stress_app/screens/app_drawer.dart';
 
 import 'package:stress_app/screens/stress_level_overview.dart';
-
 class MyHomePage extends StatefulWidget {
 
 
@@ -54,6 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class HomePageBody extends StatelessWidget {
+
+
 
   @override
   Widget build(BuildContext context) {

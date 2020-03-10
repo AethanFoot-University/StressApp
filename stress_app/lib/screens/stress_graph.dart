@@ -26,7 +26,7 @@ class StressGraph extends StatelessWidget {
 
 
   Widget drawGraph(){
-      if(this.data ==null && false){
+      if(this.data ==null){
         return Column(
             children:[Text("There is no data to show"),
             Image.network("https://cdn.dribbble.com/users/1097364/screenshots/6345967/3_2x.png")]

@@ -4,13 +4,37 @@ import 'package:stress_app/screens/graph_analysis_view.dart';
 import 'package:stress_app/screens/stress_level_overview.dart';
 
 import 'package:stress_app/screens/homepage.dart';
+import 'package:stress_app/tools/CSVReader.dart';
+
+import 'data/StressLevel.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
+  static  List<StressLevel> _levels = null;
+
+  static bool _ready = false;
+
+  static bool get ready => _ready;
+
+  static getLevels(){
+    return [].addAll(_levels);
+  }
+
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    var ret = CSVReader("bla ad").getStressLevels();
+
+
+    ret.then((levels)=>{
+      _levels = levels,
+      _ready = (_levels ==null)
+    });
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -28,6 +52,10 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
+
+
+
+
 }
 
 

@@ -2,16 +2,32 @@ import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+import 'package:stress_app/data/StressLevel.dart';
+
 class CSVReader {
-  static Future<List<List<String>>> read(String dir) {
-    return Future(() => readCSV(dir));
+
+  String _currentPath;
+
+  CSVReader( @required this._currentPath);
+
+  Future<List<StressLevel>> getStressLevels(){
+    List<StressLevel> testStress = [
+      StressLevel(time: DateTime.now(), stressLevel: 5.0),
+      StressLevel(time: DateTime.now(), stressLevel: 7.0),
+      StressLevel(time: DateTime.now(), stressLevel: 8.0),
+      StressLevel(time: DateTime.now(), stressLevel: 8.0),
+      StressLevel(time: DateTime.now(), stressLevel: 5.0),
+      StressLevel(time: DateTime.now(), stressLevel: 2.0),
+    ];
+    return Future(()=>testStress);
   }
 
   static List<List<String>> readCSV(String dir) {
     List<String> lines = new List();
     List<List<String>> rows = new List();
 
-    File file = new File("/lib/resources");
+    File file = new File(dir);
 
     Stream<List> inputStream = file.openRead();
 
