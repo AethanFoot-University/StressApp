@@ -54,10 +54,9 @@ class _SideDrawerState extends State<SideDrawer> {
                 ),
                 ListTile(
                   title: Text('Graph Breakdown'),
-                  onTap: () async {
-                    var levels = await CSVReader("bla ad") .getStressLevels();
+                  onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => GraphAnalysisView(levels)));
+                        MaterialPageRoute(builder: (context) => GraphAnalysisView()));
                   },
                 ),
                 ListTile(

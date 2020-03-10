@@ -21,6 +21,7 @@ class StressLevelOverview extends StatelessWidget {
   }
 
   DataRow generateRow(int len, String time){
+
     List<DataCell> cells = new List<DataCell>();
     cells.add(DataCell(
         Container(

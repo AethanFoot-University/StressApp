@@ -11,16 +11,25 @@ class CSVReader {
 
   CSVReader( @required this._currentPath);
 
-  Future<List<StressLevel>> getStressLevels(){
-    List<StressLevel> testStress = [
-      StressLevel(time: DateTime.now(), stressLevel: 5.0),
-      StressLevel(time: DateTime.now(), stressLevel: 7.0),
-      StressLevel(time: DateTime.now(), stressLevel: 8.0),
-      StressLevel(time: DateTime.now(), stressLevel: 8.0),
-      StressLevel(time: DateTime.now(), stressLevel: 5.0),
-      StressLevel(time: DateTime.now(), stressLevel: 2.0),
-    ];
-    return Future(()=>testStress);
+  Future<List<StressLevel>> getStressLevels() {
+
+
+
+
+    return   Future(() {
+      List<StressLevel> testStress = [
+        StressLevel(time: DateTime.now(), stressLevel: 5.0),
+        StressLevel(time: DateTime.now(), stressLevel: 7.0),
+        StressLevel(time: DateTime.now(), stressLevel: 8.0),
+        StressLevel(time: DateTime.now(), stressLevel: 8.0),
+        StressLevel(time: DateTime.now(), stressLevel: 5.0),
+        StressLevel(time: DateTime.now(), stressLevel: 2.0),
+      ];
+
+
+
+      return testStress;
+    });
   }
 
   static List<List<String>> readCSV(String dir) {
