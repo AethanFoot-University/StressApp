@@ -12,29 +12,55 @@ class AccountPage extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
-            automaticallyImplyLeading: true,
-            title: Text('Your Account'),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context, false),
-            )),
-        body: BodyLayout(),
+          automaticallyImplyLeading: true,
+          title: Text('Your Account'),
+        ),
+        body: BodyLayout(context),
       ),
     );
   }
 }
 
 class BodyLayout extends StatefulWidget {
+  final BuildContext parentContext;
+
+  BodyLayout(this.parentContext);
+
   @override
-  _BodyLayoutState createState() => _BodyLayoutState();
+  _BodyLayoutState createState() => _BodyLayoutState(parentContext);
 }
 
 class _BodyLayoutState extends State<BodyLayout> {
+  final BuildContext parentContext;
+
+  _BodyLayoutState(this.parentContext);
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text(
-        'Account Page'
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Ink(
+                  decoration: ShapeDecoration(
+                    color: Colors.purple,
+                    shape: CircleBorder(),
+                  ),
+                  child: IconButton(
+                    color: Colors.white,
+                    splashColor: Colors.transparent,
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () => Navigator.pop(parentContext, false),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
