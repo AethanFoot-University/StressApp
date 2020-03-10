@@ -32,7 +32,7 @@ class _SideDrawerState extends State<SideDrawer> {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 Container(
-                  height: MediaQuery.of(context).size.height / 4,
+                  height: ((MediaQuery.of(context).size.height + 150) / 4) - 75,
                 ),
                 ListTile(
                   title: Text('Graph Breakdown'),
@@ -56,7 +56,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   },
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height / 2,
+                  height: ((MediaQuery.of(context).size.height + 150) / 2) - 20,
                 ),
               ],
             ),
