@@ -3,10 +3,10 @@
 
 import 'package:flutter/widgets.dart';
 
-class StressLevel<t extends int,double,float>{
+class StressLevel{
 
   final DateTime time;
-  final t stressLevel;
+  final double stressLevel;
 
   StressLevel({@required this.time, @required this.stressLevel});
 }
