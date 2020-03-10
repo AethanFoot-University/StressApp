@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stress_app/data/StressLevel.dart';
 import 'dart:math';
 
-import 'StressGraph.dart';
+import 'package:stress_app/screens/stress_graph.dart';
 class GraphAnalysisView extends StatelessWidget {
   GraphAnalysisView({Key key, this.title}) : super(key: key);
 
