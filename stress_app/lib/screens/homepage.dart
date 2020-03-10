@@ -105,7 +105,7 @@ class BottomBar extends StatelessWidget {
               color: parent._selectedIndex == 2 ? Colors.grey : Colors.white,
               splashColor: Colors.transparent,
               iconSize: parent._selectedIndex == 2 ? 30 : 24,
-              icon: Icon(Icons.show_chart),
+              icon: Icon(Icons.table_chart),
               onPressed: () {
                 parent._onItemTapped(2);
               },
