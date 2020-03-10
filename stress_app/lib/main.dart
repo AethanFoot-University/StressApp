@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:stress_app/GraphAnalysisView.dart';
-import 'StressLevelOverview.dart';
+import 'package:stress_app/screens/graph_analysis_view.dart';
+import 'package:stress_app/screens/stress_level_overview.dart';
 
 import 'package:stress_app/screens/homepage.dart';
 

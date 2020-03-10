@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stress_app/screens/app_drawer.dart';
 
-import '../StressLevelOverview.dart';
+import 'package:stress_app/screens/stress_level_overview.dart';
 
 class MyHomePage extends StatefulWidget {
 

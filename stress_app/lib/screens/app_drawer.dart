@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stress_app/screens/availible_activities.dart';
 
-import '../GraphAnalysisView.dart';
+import 'package:stress_app/screens/graph_analysis_view.dart';
 import 'account_page.dart';
 import 'graph_page.dart';
 
