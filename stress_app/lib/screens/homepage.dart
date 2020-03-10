@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SideDrawer(),
+      drawer: SideDrawer(context),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),

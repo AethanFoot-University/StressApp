@@ -6,11 +6,26 @@ import 'account_page.dart';
 import 'graph_page.dart';
 
 class SideDrawer extends StatefulWidget {
+  final BuildContext context;
+
+  SideDrawer(this.context);
+
   @override
-  _SideDrawerState createState() => _SideDrawerState();
+  _SideDrawerState createState() => _SideDrawerState(context);
 }
 
 class _SideDrawerState extends State<SideDrawer> {
+  final BuildContext context;
+  ScrollController sc;
+
+  _SideDrawerState(this.context);
+
+  @override
+  void initState() {
+    sc = ScrollController(initialScrollOffset: ((MediaQuery.of(this.context).size.height + 150) / 4) - 75);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -29,6 +44,7 @@ class _SideDrawerState extends State<SideDrawer> {
           ),
           Expanded(
             child: ListView(
+              controller: sc,
               padding: EdgeInsets.zero,
               children: <Widget>[
                 Container(
