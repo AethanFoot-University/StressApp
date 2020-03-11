@@ -1,19 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AccountPage extends StatelessWidget {
+class AvailableActivities extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Your Account',
+      title: 'Available Activities',
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
       home: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: true,
-          title: Text('Your Account'),
+          title: Text('Available Activities'),
         ),
         body: BodyLayout(context),
       ),
@@ -34,7 +33,7 @@ class BodyLayout extends StatelessWidget {
           Expanded(
             child: Center(
               child: Text(
-                  'Ballers Account'
+                'Many Activities'
               ),
             ),
           ),

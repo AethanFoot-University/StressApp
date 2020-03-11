@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:stress_app/screens/availible_activities.dart';
 
+import 'package:stress_app/screens/available_activities.dart';
 import 'package:stress_app/screens/graph_analysis_view.dart';
 import 'account_page.dart';
-import 'graph_page.dart';
-import 'package:stress_app/tools/CSVReader.dart';
 
 class SideDrawer extends StatefulWidget {
   final BuildContext context;
@@ -74,7 +72,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   },
                 ),
                 Container(
-                  height: ((MediaQuery.of(context).size.height + 150) / 2) - 20,
+                  height: ((MediaQuery.of(context).size.height + 150) / 2),
                 ),
               ],
             ),
