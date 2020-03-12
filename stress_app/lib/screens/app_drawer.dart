@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:stress_app/screens/availible_activities.dart';
 
+import 'package:stress_app/screens/available_activities.dart';
 import 'package:stress_app/screens/graph_analysis_view.dart';
 import 'account_page.dart';
-import 'graph_page.dart';
-import 'package:stress_app/tools/CSVReader.dart';
 
 class SideDrawer extends StatefulWidget {
   final BuildContext context;
@@ -24,7 +22,7 @@ class _SideDrawerState extends State<SideDrawer> {
 
   @override
   void initState() {
-    sc = ScrollController(initialScrollOffset: ((MediaQuery.of(this.context).size.height + 150) / 4) - 75);
+    sc = ScrollController(initialScrollOffset: ((MediaQuery.of(this.context).size.height) / 2));
     super.initState();
   }
 
@@ -50,31 +48,40 @@ class _SideDrawerState extends State<SideDrawer> {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 Container(
-                  height: ((MediaQuery.of(context).size.height + 150) / 4) - 75,
-                ),
-                ListTile(
-                  title: Text('Graph Breakdown'),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => GraphAnalysisView()));
-                  },
-                ),
-                ListTile(
-                  title: Text('Available Activities'),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AvailableActivities()));
-                  },
-                ),
-                ListTile(
-                  title: Text("Account"),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AccountPage()));
-                  },
+                  height: ((MediaQuery.of(context).size.height) / 2),
                 ),
                 Container(
-                  height: ((MediaQuery.of(context).size.height + 150) / 2) - 20,
+                  height: 75,
+                  child: ListTile(
+                    title: Text('Graph Breakdown'),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => GraphAnalysisView()));
+                    },
+                  ),
+                ),
+                Container(
+                  height: 75,
+                  child: ListTile(
+                    title: Text('Available Activities'),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => AvailableActivities()));
+                    },
+                  ),
+                ),
+                Container(
+                  height: 75,
+                  child: ListTile(
+                    title: Text("Account"),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => AccountPage()));
+                    },
+                  ),
+                ),
+                Container(
+                  height: ((MediaQuery.of(context).size.height) - 375),
                 ),
               ],
             ),
