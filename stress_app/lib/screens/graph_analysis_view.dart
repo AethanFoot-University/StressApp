@@ -21,17 +21,17 @@ class GraphAnalysisView extends StatelessWidget {
   }
 
   Widget buildScaffold(BuildContext context, var levels){
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Graph Page',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-            title: Text('Graph Page')
+    return Scaffold(
+      body: BodyLayout(context, levels),
+      floatingActionButton: Container(
+        padding: EdgeInsets.only(left: 24.0),
+        alignment: Alignment.bottomLeft,
+        child: FloatingActionButton(
+          splashColor: Colors.transparent,
+          backgroundColor: Colors.purple,
+          child: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
         ),
-        body: BodyLayout(context, levels),
       ),
     );
   }
@@ -53,16 +53,6 @@ class BodyLayout extends StatelessWidget {
           ),
           Expanded(
             child: StressGraph(levels),
-          ),
-          Container(
-            alignment: Alignment.bottomLeft,
-            padding: EdgeInsets.all(8.0),
-            child: FloatingActionButton(
-              splashColor: Colors.transparent,
-              backgroundColor: Colors.purple,
-              child: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(parentContext),
-            ),
           ),
         ],
       ),

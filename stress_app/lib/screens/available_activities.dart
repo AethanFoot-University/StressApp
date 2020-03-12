@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 class AvailableActivities extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Available Activities',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Available Activities'),
+    return Scaffold(
+      body: BodyLayout(context),
+      floatingActionButton: Container(
+        padding: EdgeInsets.only(left: 24.0),
+        alignment: Alignment.bottomLeft,
+        child: FloatingActionButton(
+          splashColor: Colors.transparent,
+          backgroundColor: Colors.purple,
+          child: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
         ),
-        body: BodyLayout(context),
       ),
     );
   }
@@ -30,21 +30,14 @@ class BodyLayout extends StatelessWidget {
     return Container(
       child: Column(
         children: <Widget>[
+          SizedBox(
+            height: 50,
+          ),
           Expanded(
             child: Center(
               child: Text(
-                'Many Activities'
+                  'So much room for activities'
               ),
-            ),
-          ),
-          Container(
-            alignment: Alignment.bottomLeft,
-            padding: EdgeInsets.all(8.0),
-            child: FloatingActionButton(
-              splashColor: Colors.transparent,
-              backgroundColor: Colors.purple,
-              child: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(parentContext),
             ),
           ),
         ],
