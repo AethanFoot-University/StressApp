@@ -28,13 +28,15 @@ class _SideDrawerState extends State<SideDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    double headerHeight = MediaQuery.of(context).size.height * 3 / 19.2;
+
     return Drawer(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            height: 150,
+            height: headerHeight,
             child: DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.purple,
@@ -81,7 +83,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   ),
                 ),
                 Container(
-                  height: ((MediaQuery.of(context).size.height) - 375),
+                  height: ((MediaQuery.of(context).size.height) - (225 + headerHeight)),
                 ),
               ],
             ),

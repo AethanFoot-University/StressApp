@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:stress_app/screens/app_drawer.dart';
+import 'package:stress_app/screens/homepage_body.dart';
 import 'package:stress_app/screens/stress_level_overview.dart';
+import 'package:stress_app/screens/stress_relief_page.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -18,11 +20,8 @@ class _MyHomePageState extends State<MyHomePage> {
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     HomePageBody(),
-    Text(
-      'Index 1: Excercises Page',
-      style: optionStyle,
-    ),
-    StressLevelOverview()
+    StressReliefPage(),
+    StressLevelOverview(Color(0xffffffff))
   ];
 
   void _onItemTapped(int index) {
@@ -39,26 +38,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomBar(this),
-    );
-  }
-}
-
-class HomePageBody extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return DraggableScrollableSheet(
-      expand: false,
-      builder: (_, scrollController) => Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("Hello")
-            ],
-          ),
-        ],
-      ),
     );
   }
 }
