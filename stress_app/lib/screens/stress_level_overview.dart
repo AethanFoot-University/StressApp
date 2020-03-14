@@ -20,7 +20,11 @@ class StressLevelOverview extends StatelessWidget {
         cols.add(
           DataColumn(
             label: Text(
-              col
+              col,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           )
         );
@@ -28,7 +32,11 @@ class StressLevelOverview extends StatelessWidget {
         cols.add(
             DataColumn(
               label: Text(
-                  col.substring(0, 3)
+                col.substring(0, 3),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             )
         );
@@ -44,7 +52,13 @@ class StressLevelOverview extends StatelessWidget {
       DataCell(
         Container(
           width: 40,
-          child: Text(time)
+          child: Text(
+            time,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          )
         )
       )
     );
@@ -79,7 +93,13 @@ class StressLevelOverview extends StatelessWidget {
     builder: (context, constraints) => SingleChildScrollView(
       child: Column(
         children: [
-          const Text('My Text'),
+          const Text(
+            'My Text',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           Container(
             alignment: Alignment.topLeft,
             child: SingleChildScrollView(

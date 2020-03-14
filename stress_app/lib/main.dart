@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Stress App',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.grey,
       ),
       home: MyHomePage(title: 'Stress App'),
     );

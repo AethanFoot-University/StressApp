@@ -26,7 +26,7 @@ class StressGraph extends StatelessWidget {
           children:[
             Text("There is no data to show"),
             Image(
-              image: AssetImage('lib/assets/images/meditate.png'),
+              image: AssetImage('assets/images/meditate.png'),
             ),
           ],
       );

@@ -30,65 +30,72 @@ class _SideDrawerState extends State<SideDrawer> {
   Widget build(BuildContext context) {
     double headerHeight = MediaQuery.of(context).size.height * 3 / 19.2;
 
-    return Drawer(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            height: headerHeight,
-            child: DrawerHeader(
+    return ClipRRect(
+      borderRadius: BorderRadius.horizontal(right: Radius.circular(16.0)),
+      child: Drawer(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              height: headerHeight,
+              width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                color: Colors.purple,
+                color: Color(0xff424242),
               ),
-              child: null,
+              child: DrawerHeader(
+                child: Text(
+                  'Various details',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
-          ),
-          Expanded(
-            child: ListView(
-              controller: sc,
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                Container(
-                  height: ((MediaQuery.of(context).size.height) / 2),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color(0xff424242),
                 ),
-                Container(
-                  height: 75,
-                  child: ListTile(
-                    title: Text('Graph Breakdown'),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => GraphAnalysisView()));
-                    },
-                  ),
+                child: ListView(
+                  controller: sc,
+                  padding: EdgeInsets.zero,
+                  children: <Widget>[
+                    Container(
+                      height: ((MediaQuery.of(context).size.height) / 2),
+                    ),
+                    createTile('Graph Breakdown', GraphAnalysisView()),
+                    createTile('Available Activities', AvailableActivities()),
+                    createTile('Account', AccountPage()),
+                    Container(
+                      height: ((MediaQuery.of(context).size.height) - (225 + headerHeight)),
+                    ),
+                  ],
                 ),
-                Container(
-                  height: 75,
-                  child: ListTile(
-                    title: Text('Available Activities'),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => AvailableActivities()));
-                    },
-                  ),
-                ),
-                Container(
-                  height: 75,
-                  child: ListTile(
-                    title: Text("Account"),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => AccountPage()));
-                    },
-                  ),
-                ),
-                Container(
-                  height: ((MediaQuery.of(context).size.height) - (225 + headerHeight)),
-                ),
-              ],
+              ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget createTile(String name, Widget page) {
+    return Container(
+      height: 75,
+      child: ListTile(
+        title: Text(
+          name,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
           ),
-        ],
+        ),
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => page));
+        },
       ),
     );
   }

@@ -38,6 +38,6 @@ class CSVReader {
   }
 
   static Future<String> loadFile() async {
-    return await rootBundle.loadString('lib/assets/com.samsung.shealth.stress.202003111542.csv');
+    return await rootBundle.loadString('assets/com.samsung.shealth.stress.202003111542.csv');
   }
 }

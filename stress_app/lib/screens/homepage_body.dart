@@ -10,14 +10,14 @@ class HomePageBody extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-          color: Color(0xffffffff),
+          color: Color(0xff101010),
         ),
         child: Column(
           children: <Widget>[
             SizedBox(
               height: 60,
             ),
-            HomeWidget(StressLevelOverview(Colors.purple)),
+            HomeWidget(StressLevelOverview(Color(0xff424242))),
           ],
         ),
       ),
@@ -36,13 +36,6 @@ class HomeWidget extends StatelessWidget {
       padding: EdgeInsets.all(16.0),
       child: Container(
         height: 250,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.black,
-            width: 4,
-          ),
-          borderRadius: BorderRadius.circular(12),
-        ),
         child: child,
       ),
     );

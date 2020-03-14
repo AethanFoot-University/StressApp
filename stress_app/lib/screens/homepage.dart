@@ -21,7 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static List<Widget> _widgetOptions = <Widget>[
     HomePageBody(),
     StressReliefPage(),
-    StressLevelOverview(Color(0xffffffff))
+    StressLevelOverview(Color(0xff101010))
   ];
 
   void _onItemTapped(int index) {
@@ -51,7 +51,7 @@ class BottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomAppBar(
       child: Ink(
-        color: Colors.purple,
+        color: Color(0xff000000),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
