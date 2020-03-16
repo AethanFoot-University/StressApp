@@ -32,7 +32,7 @@ class StressLevelOverview extends StatelessWidget {
         cols.add(
             DataColumn(
               label: Text(
-                col.substring(0, 3),
+                col.substring(0, 1),
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -45,7 +45,7 @@ class StressLevelOverview extends StatelessWidget {
     return cols;
   }
 
-  DataRow generateRow(int len, String time){
+  DataRow generateRow(int len, String time, BuildContext context){
 
     List<DataCell> cells = new List<DataCell>();
     cells.add(
@@ -79,17 +79,17 @@ class StressLevelOverview extends StatelessWidget {
     return DataRow(cells: cells);
   }
 
-  Widget generateDataTable() {
+  Widget generateDataTable(BuildContext context) {
     List<DataRow> rows = new List<DataRow>();
 
     for(int h =0; h < 24; h++){
-      rows.add(generateRow(DATA_COLUMNS.length, "$h:00"));
+      rows.add(generateRow(DATA_COLUMNS.length, "$h:00", context));
     }
 
-    return DataTable(columns: getColumns(), rows: rows);
+    return DataTable(columns: getColumns(), rows: rows, columnSpacing: ((MediaQuery.of(context).size.width - 250) / 9) - 1,);
   }
 
-  Widget generateStressTable() => LayoutBuilder(
+  Widget generateStressTable(BuildContext context) => LayoutBuilder(
     builder: (context, constraints) => SingleChildScrollView(
       child: Column(
         children: [
@@ -105,8 +105,8 @@ class StressLevelOverview extends StatelessWidget {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: ConstrainedBox(
-                constraints: BoxConstraints(minWidth: constraints.minWidth),
-                child: generateDataTable(),
+                constraints: BoxConstraints(minWidth: constraints.minWidth, maxWidth: MediaQuery.of(context).size.width),
+                child: generateDataTable(context),
               ),
             ),
           ),
@@ -133,7 +133,7 @@ class StressLevelOverview extends StatelessWidget {
             height: 16,
           ),
           Expanded(
-            child: generateStressTable(),
+            child: generateStressTable(context),
           ),
         ],
       ),

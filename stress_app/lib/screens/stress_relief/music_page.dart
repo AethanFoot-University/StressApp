@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -134,6 +133,7 @@ class BottomBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
+              splashColor: Colors.transparent,
               color: Colors.white,
               icon: Icon(Icons.arrow_back),
               onPressed: () => Navigator.pop(context),
@@ -142,6 +142,7 @@ class BottomBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 IconButton(
+                  splashColor: Colors.transparent,
                   color: Colors.white,
                   icon: Icon(Icons.fast_rewind),
                   onPressed: () async {
@@ -152,6 +153,7 @@ class BottomBar extends StatelessWidget {
                   },
                 ),
                 IconButton(
+                  splashColor: Colors.transparent,
                   color: Colors.white,
                   icon: parent.playing ? Icon(Icons.pause) : Icon(Icons.play_arrow),
                   onPressed: () {
@@ -173,6 +175,7 @@ class BottomBar extends StatelessWidget {
                   },
                 ),
                 IconButton(
+                  splashColor: Colors.transparent,
                   color: Colors.white,
                   icon: Icon(Icons.fast_forward),
                   onPressed: () async {
@@ -185,6 +188,7 @@ class BottomBar extends StatelessWidget {
               ],
             ),
             IconButton(
+              splashColor: Colors.transparent,
               color: parent.loop ? Colors.green : Colors.white,
               icon: Icon(Icons.loop),
               onPressed: () {
