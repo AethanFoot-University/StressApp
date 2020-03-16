@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:stress_app/screens/homepage.dart';
+import 'package:stress_app/screens/home/homepage.dart';
 
 void main() => runApp(MyApp());
 
