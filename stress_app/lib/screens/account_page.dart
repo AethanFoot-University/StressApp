@@ -4,59 +4,39 @@ import 'package:flutter/material.dart';
 class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Your Account',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          title: Text('Your Account'),
+    return Scaffold(
+      body: BodyLayout(context),
+      floatingActionButton: Container(
+        padding: EdgeInsets.only(left: 24.0),
+        alignment: Alignment.bottomLeft,
+        child: FloatingActionButton(
+          splashColor: Colors.transparent,
+          backgroundColor: Colors.purple,
+          child: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
         ),
-        body: BodyLayout(context),
       ),
     );
   }
 }
 
-class BodyLayout extends StatefulWidget {
+class BodyLayout extends StatelessWidget {
   final BuildContext parentContext;
 
   BodyLayout(this.parentContext);
-
-  @override
-  _BodyLayoutState createState() => _BodyLayoutState(parentContext);
-}
-
-class _BodyLayoutState extends State<BodyLayout> {
-  final BuildContext parentContext;
-
-  _BodyLayoutState(this.parentContext);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: <Widget>[
+          SizedBox(
+            height: 50,
+          ),
           Expanded(
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Ink(
-                  decoration: ShapeDecoration(
-                    color: Colors.purple,
-                    shape: CircleBorder(),
-                  ),
-                  child: IconButton(
-                    color: Colors.white,
-                    splashColor: Colors.transparent,
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () => Navigator.pop(parentContext, false),
-                  ),
-                ),
+            child: Center(
+              child: Text(
+                  'Ballers Account'
               ),
             ),
           ),

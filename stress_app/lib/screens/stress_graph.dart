@@ -1,70 +1,61 @@
-import 'dart:io';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:intl/intl.dart';
 
 import 'package:stress_app/data/StressLevel.dart';
+
 class StressGraph extends StatelessWidget {
+  List<StressLevel> data;
 
-
-   List<StressLevel> data;
-
-  StressGraph( this.data);
+  StressGraph(this.data);
 
   List<FlSpot> getPlotData(){
     List<FlSpot> retList = new List();
     int index=0;
     for(StressLevel dataPoint in data){
       index++;
-      retList.add(FlSpot( index*1.0, dataPoint.stressLevel));
+      retList.add(FlSpot(index * 1.0, dataPoint.stressLevel));
     }
 
     return retList;
-
   }
 
-
   Widget drawGraph(){
-
-    print("Drawing graph");
-      if(this.data ==null){
-        print("Oh no! Data is null");
-        return Column(
-            children:[Text("There is no data to show"),
-            Image.network("https://cdn.dribbble.com/users/1097364/screenshots/6345967/3_2x.png")]
-        );
-      }
-      else{
-
-        return Stack(
-          children: <Widget>[
-            AspectRatio(
-              aspectRatio: 1.70,
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(18),
-                    ),
-                    color: const Color(0xff232d37)),
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 18.0, left: 12.0, top: 24, bottom: 12),
-                  child: LineChart(
-                    mainData(),
+    if(this.data == null){
+      return Column(
+          children:[
+            Text("There is no data to show"),
+            Image(
+              image: AssetImage('lib/assets/images/meditate.png'),
+            ),
+          ],
+      );
+    } else {
+      return Stack(
+        children: <Widget>[
+          AspectRatio(
+            aspectRatio: 1.70,
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(18),
                   ),
+                  color: const Color(0xff232d37)),
+              child: Padding(
+                padding: const EdgeInsets.only(right: 18.0, left: 12.0, top: 24, bottom: 12),
+                child: LineChart(
+                  mainData(),
                 ),
               ),
             ),
-          ],
-        );
-
-      }
+          ),
+        ],
+      );
+    }
   }
-
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: drawGraph(),
     );
@@ -79,12 +70,10 @@ class StressGraph extends StatelessWidget {
   String lastValue = " ";
   bool firstVal = true;
 
-
   LineChartData mainData() {
-
     double max =0;
     //data.sort((a,b)=>a.stressLevel.compareTo(b.stressLevel));
-    for(StressLevel lvl in data) max = (lvl.stressLevel>max)? lvl.stressLevel : max;
+    for(StressLevel lvl in data) max = (lvl.stressLevel > max) ? lvl.stressLevel : max;
 
     return LineChartData(
       gridData: FlGridData(
@@ -113,12 +102,7 @@ class StressGraph extends StatelessWidget {
           getTitles: (value) {
             if(value< data.length){
               String newVal = DateFormat('EEEE').format(data[value.toInt()].time);
-
-                return newVal.substring(0, 3);
-
-
-
-
+              return newVal.substring(0, 3);
             }
             return '';
           },
@@ -162,10 +146,6 @@ class StressGraph extends StatelessWidget {
       ],
     );
   }
-
-
-
-
 }
 
 

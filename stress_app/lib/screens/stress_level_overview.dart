@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+
 class StressLevelOverview extends StatelessWidget {
   StressLevelOverview({Key key, this.title}) : super(key: key);
 
@@ -13,33 +14,51 @@ class StressLevelOverview extends StatelessWidget {
     List<DataColumn> cols = new List<DataColumn>();
 
     for(String col in DATA_COLUMNS){
-      cols.add(DataColumn(
-          label: Text(col.substring(0,3)),
-      ));
-  }
+      if (col == 'Time') {
+        cols.add(
+          DataColumn(
+            label: Text(
+              col
+            ),
+          )
+        );
+      } else {
+        cols.add(
+            DataColumn(
+              label: Text(
+                  col.substring(0, 3)
+              ),
+            )
+        );
+      }
+    }
     return cols;
   }
 
   DataRow generateRow(int len, String time){
 
     List<DataCell> cells = new List<DataCell>();
-    cells.add(DataCell(
+    cells.add(
+      DataCell(
         Container(
-            width: 30,
-            child: Text(time)))
-
+            width: 40,
+            child: Text(time)
+        )
+      )
     );
 
-    for(int i =0; i<len-1; i++) {
+    for(int i = 0; i < len - 1; i++) {
       var stressColor = COLOR_SCALE[new Random().nextInt(COLOR_SCALE.length)];
 
-    cells.add(DataCell(
+      cells.add(
+        DataCell(
           Container(
-              width: 30, //SET width
-              decoration: new BoxDecoration(color: stressColor),
-              child: Text("")))
-
-          );
+            width: 30, //SET width
+            decoration: new BoxDecoration(color: stressColor),
+            child: Text("")
+          )
+        )
+      );
     }
     return DataRow(cells: cells);
   }
@@ -47,7 +66,7 @@ class StressLevelOverview extends StatelessWidget {
   Widget generateDataTable() {
     List<DataRow> rows = new List<DataRow>();
 
-    for(int h =0; h< 24; h++){
+    for(int h =0; h < 24; h++){
       rows.add(generateRow(DATA_COLUMNS.length, "$h:00"));
     }
 
@@ -75,15 +94,22 @@ class StressLevelOverview extends StatelessWidget {
   );
 
   final String title;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(title: Text('My Page')),
-
-      body: generateStressTable(),
+      body: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 60,
+          ),
+          Expanded(
+            child: generateStressTable(),
+          )
+        ],
+      ),
     );
-
   }
 }
 
