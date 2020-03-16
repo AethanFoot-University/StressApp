@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class StressLevelOverview extends StatelessWidget {
-  final color;
+  StressLevelOverview(this.widgetMode, {Key key, this.title}) : super(key: key);
 
-  StressLevelOverview(this.color, {Key key, this.title}) : super(key: key);
+  final widgetMode;
 
   static List<String> DATA_COLUMNS = ["Time", "Monday", "Tuesday",
   "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -119,13 +119,11 @@ class StressLevelOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return widgetMode ?
+    widgetVersion(context) :
+    Container(
       decoration: BoxDecoration(
-        color: color,
-        border: Border.all(
-          color: color,
-        ),
-        borderRadius: BorderRadius.circular(8),
+        color: Color(0xff101010),
       ),
       child: Column(
         children: <Widget>[
@@ -136,6 +134,27 @@ class StressLevelOverview extends StatelessWidget {
             child: generateStressTable(context),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget widgetVersion(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color(0xff424242),
+        ),
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 16,
+            ),
+            Expanded(
+              child: generateStressTable(context),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -6,15 +6,20 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
 class MusicPage extends StatefulWidget {
-  MusicPage({Key key, this.title}) : super(key: key);
+  MusicPage(this.widgetMode, {Key key, this.title}) : super(key: key);
 
+  final widgetMode;
   final String title;
 
   @override
-  _MusicPageState createState() => _MusicPageState();
+  _MusicPageState createState() => _MusicPageState(widgetMode);
 }
 
 class _MusicPageState extends State<MusicPage> {
+  final widgetMode;
+
+  _MusicPageState(this.widgetMode);
+
   AudioPlayer player;
   File currentFile;
   bool playing = false;
@@ -52,11 +57,58 @@ class _MusicPageState extends State<MusicPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return widgetMode ?
+    ClipRRect(
+      borderRadius: BorderRadius.circular(8.0),
+      child: Container(
           decoration: BoxDecoration(
-            color: Color(0xff101010),
+            color: Color(0xff424242),
           ),
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: ListView.separated(
+                  itemCount: names.length,
+                  separatorBuilder: (BuildContext context, int index) => Divider(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return createTile(names[index]);
+                  },
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: IconButton(
+                  splashColor: Colors.transparent,
+                  color: Colors.white,
+                  icon: playing ? Icon(Icons.pause) : Icon(Icons.play_arrow),
+                  onPressed: () {
+                    if (playerSet) {
+                      if (!playing) {
+                        player.resume();
+                        setState(() {
+                          playing = true;
+                        });
+                      } else {
+                        player.pause();
+                        setState(() {
+                          playing = false;
+                        });
+                      }
+                    } else if(musicList.length > 0) {
+                      loadMusic(musicList[currentPos]);
+                    }
+                  },
+                ),
+              ),
+            ],
+          )
+      ),
+    ):
+    Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          color: Color(0xff101010),
+        ),
         child: ListView.separated(
           itemCount: names.length + 1,
           separatorBuilder: (BuildContext context, int index) => Divider(),

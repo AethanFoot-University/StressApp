@@ -21,7 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static List<Widget> _widgetOptions = <Widget>[
     HomePageBody(),
     StressReliefPage(),
-    StressLevelOverview(Color(0xff101010))
+    StressLevelOverview(false)
   ];
 
   void _onItemTapped(int index) {
