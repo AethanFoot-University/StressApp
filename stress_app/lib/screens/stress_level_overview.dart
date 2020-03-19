@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class StressLevelOverview extends StatelessWidget {
-  StressLevelOverview({Key key, this.title}) : super(key: key);
+  StressLevelOverview(this.widgetMode, {Key key, this.title}) : super(key: key);
+
+  final widgetMode;
 
   static List<String> DATA_COLUMNS = ["Time", "Monday", "Tuesday",
   "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -18,7 +20,11 @@ class StressLevelOverview extends StatelessWidget {
         cols.add(
           DataColumn(
             label: Text(
-              col
+              col,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           )
         );
@@ -26,7 +32,11 @@ class StressLevelOverview extends StatelessWidget {
         cols.add(
             DataColumn(
               label: Text(
-                  col.substring(0, 3)
+                col.substring(0, 1),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             )
         );
@@ -35,14 +45,20 @@ class StressLevelOverview extends StatelessWidget {
     return cols;
   }
 
-  DataRow generateRow(int len, String time){
+  DataRow generateRow(int len, String time, BuildContext context){
 
     List<DataCell> cells = new List<DataCell>();
     cells.add(
       DataCell(
         Container(
-            width: 40,
-            child: Text(time)
+          width: 40,
+          child: Text(
+            time,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          )
         )
       )
     );
@@ -63,28 +79,34 @@ class StressLevelOverview extends StatelessWidget {
     return DataRow(cells: cells);
   }
 
-  Widget generateDataTable() {
+  Widget generateDataTable(BuildContext context) {
     List<DataRow> rows = new List<DataRow>();
 
     for(int h =0; h < 24; h++){
-      rows.add(generateRow(DATA_COLUMNS.length, "$h:00"));
+      rows.add(generateRow(DATA_COLUMNS.length, "$h:00", context));
     }
 
-    return DataTable(columns: getColumns(), rows: rows);
+    return DataTable(columns: getColumns(), rows: rows, columnSpacing: ((MediaQuery.of(context).size.width - 250) / 9) - 1,);
   }
 
-  Widget generateStressTable() => LayoutBuilder(
+  Widget generateStressTable(BuildContext context) => LayoutBuilder(
     builder: (context, constraints) => SingleChildScrollView(
       child: Column(
         children: [
-          const Text('My Text'),
+          const Text(
+            'My Text',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           Container(
             alignment: Alignment.topLeft,
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: ConstrainedBox(
-                constraints: BoxConstraints(minWidth: constraints.minWidth),
-                child: generateDataTable(),
+                constraints: BoxConstraints(minWidth: constraints.minWidth, maxWidth: MediaQuery.of(context).size.width),
+                child: generateDataTable(context),
               ),
             ),
           ),
@@ -97,17 +119,42 @@ class StressLevelOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
-      body: Column(
+    return widgetMode ?
+    widgetVersion(context) :
+    Container(
+      decoration: BoxDecoration(
+        color: Color(0xff101010),
+      ),
+      child: Column(
         children: <Widget>[
           SizedBox(
-            height: 60,
+            height: 16,
           ),
           Expanded(
-            child: generateStressTable(),
-          )
+            child: generateStressTable(context),
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget widgetVersion(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color(0xff424242),
+        ),
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 16,
+            ),
+            Expanded(
+              child: generateStressTable(context),
+            ),
+          ],
+        ),
       ),
     );
   }

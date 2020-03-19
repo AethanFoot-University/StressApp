@@ -17,6 +17,7 @@ environment:
   sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
+  audioplayers: ^0.14.0
   fl_chart: ^0.8.3
   intl: ^0.16.1
   flutter:
@@ -47,8 +48,9 @@ flutter:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
   assets:
-    - lib/assets/images/meditate.png
-    - lib/assets/com.samsung.shealth.stress.202003111542.csv
+    - assets/
+    - assets/images/
+    - assets/music/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
