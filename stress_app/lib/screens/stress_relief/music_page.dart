@@ -51,14 +51,14 @@ class _MusicPageState extends State<MusicPage> {
     player = AudioPlayer();
     player.onPlayerCompletion.listen((event) async {
       currentPos == musicList.length - 1 ? currentPos = 0 : currentPos++;
-      loop ? await player.play(currentFile.path, isLocal: true) : loadMusic(musicList[currentPos]);
+      loop ? await player.play(currentFile.path, isLocal: true) : _loadMusic(musicList[currentPos]);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return widgetMode ?
-    widgetVersion() :
+    _widgetVersion() :
     Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -72,11 +72,11 @@ class _MusicPageState extends State<MusicPage> {
             Container(
               height: ((MediaQuery.of(context).size.height) / 2),
             )
-                : createTile(names[index - 1]);
+                : _createTile(names[index - 1]);
           },
         ),
       ),
-      bottomNavigationBar: BottomBar(this),
+      bottomNavigationBar: _BottomBar(this),
     );
   }
 
@@ -86,7 +86,7 @@ class _MusicPageState extends State<MusicPage> {
     super.dispose();
   }
 
-  Widget widgetVersion() {
+  Widget _widgetVersion() {
     return ClipRRect(
       borderRadius: BorderRadius.circular(8.0),
       child: Container(
@@ -100,7 +100,7 @@ class _MusicPageState extends State<MusicPage> {
                 itemCount: names.length,
                 separatorBuilder: (BuildContext context, int index) => Divider(),
                 itemBuilder: (BuildContext context, int index) {
-                  return createTile(names[index]);
+                  return _createTile(names[index]);
                 },
               ),
             ),
@@ -124,7 +124,7 @@ class _MusicPageState extends State<MusicPage> {
                       });
                     }
                   } else if(musicList.length > 0) {
-                    loadMusic(musicList[currentPos]);
+                    _loadMusic(musicList[currentPos]);
                   }
                 },
               ),
@@ -135,7 +135,7 @@ class _MusicPageState extends State<MusicPage> {
     );
   }
 
-  Widget createTile(String name) {
+  Widget _createTile(String name) {
     String title = name.replaceAll('_', ' ');
     return ListTile(
       title: Text(
@@ -156,29 +156,29 @@ class _MusicPageState extends State<MusicPage> {
       ),
       onTap: () {
         player.stop();
-        loadMusic(name);
+        _loadMusic(name);
       },
     );
   }
 
-  Future loadMusic(String name) async {
+  Future _loadMusic(String name) async {
     currentFile = new File('${(await getTemporaryDirectory()).path}/$name.mp3');
-    await currentFile.writeAsBytes((await loadAsset(name)).buffer.asUint8List());
+    await currentFile.writeAsBytes((await _loadAsset(name)).buffer.asUint8List());
     final result = await player.play(currentFile.path, isLocal: true);
     setState(() {
       playerSet = playing = result == 1;
     });
   }
 
-  Future<ByteData> loadAsset(String name) async {
+  Future<ByteData> _loadAsset(String name) async {
     return await rootBundle.load('assets/music/$name.mp3');
   }
 }
 
-class BottomBar extends StatelessWidget {
+class _BottomBar extends StatelessWidget {
   final _MusicPageState parent;
 
-  BottomBar(this.parent);
+  _BottomBar(this.parent);
 
   @override
   Widget build(BuildContext context) {
@@ -204,7 +204,7 @@ class BottomBar extends StatelessWidget {
                   onPressed: () async {
                     if (parent.playerSet) {
                       parent.currentPos == 0 ? parent.currentPos = parent.musicList.length - 1 : parent.currentPos--;
-                      parent.loadMusic(parent.musicList[parent.currentPos]);
+                      parent._loadMusic(parent.musicList[parent.currentPos]);
                     }
                   },
                 ),
@@ -226,7 +226,7 @@ class BottomBar extends StatelessWidget {
                         });
                       }
                     } else if(parent.musicList.length > 0) {
-                      parent.loadMusic(parent.musicList[parent.currentPos]);
+                      parent._loadMusic(parent.musicList[parent.currentPos]);
                     }
                   },
                 ),
@@ -237,7 +237,7 @@ class BottomBar extends StatelessWidget {
                   onPressed: () async {
                     if (parent.playerSet) {
                       parent.currentPos == parent.musicList.length - 1 ? parent.currentPos = 0 : parent.currentPos++;
-                      parent.loadMusic(parent.musicList[parent.currentPos]);
+                      parent._loadMusic(parent.musicList[parent.currentPos]);
                     }
                   },
                 ),

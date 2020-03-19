@@ -11,12 +11,12 @@ class StressReliefPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Color(0xff101010),
       ),
-      child: BodyLayout(),
+      child: _BodyLayout(),
     );
   }
 }
 
-class BodyLayout extends StatelessWidget {
+class _BodyLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -24,24 +24,24 @@ class BodyLayout extends StatelessWidget {
         SizedBox(
           height: MediaQuery.of(context).size.height / 2,
         ),
-        ReliefWidget(null, false,
+        _ReliefWidget(null,
             'General',
             'Combining multiple of these excercises is best, for example listening '
                 'to soothing music while walking.'),
-        ReliefWidget(BreathePage((MediaQuery.of(context).size.height - 150) ~/ 40), true,
+        _ReliefWidget(BreathePage((MediaQuery.of(context).size.height - 150) ~/ 40),
             'Breathing Help',
             'To help with stress you can do breathing excercies for 10-20 minutes '
                 'once or twice aday. Trying to do these excercises the same time '
                 'everyday will help build a routine.'),
-        ReliefWidget(MusicPage(false), true,
+        _ReliefWidget(MusicPage(false),
             'Soothing Music',
             'Soothing music can help you remove yourself from the world around you '
             'by giving you something to concentrate on.'),
-        ReliefWidget(null, false,
+        _ReliefWidget(null,
             'Excercise',
             'Doing regular excercise not only can help you with stress, but can '
                 'help also help you with your sleep and your confidence.'),
-        ReliefWidget(null, false,
+        _ReliefWidget(null,
             'Supplements',
             'There are various supplements that you can take to help with stress,'
                 'these include:\n'
@@ -56,20 +56,22 @@ class BodyLayout extends StatelessWidget {
   }
 }
 
-class ReliefWidget extends StatelessWidget {
-  final child;
-  final title;
-  final text;
-  final nextPage;
+class _ReliefWidget extends StatelessWidget {
+  final _child;
+  final _title;
+  final _text;
+  bool _nextPage;
 
-  ReliefWidget(this.child, this.nextPage, this.title, this.text);
+  _ReliefWidget(this._child, this._title, this._text) {
+    this._nextPage = this._child != null;
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: !_nextPage ? null : () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => child));
+            MaterialPageRoute(builder: (context) => _child));
       },
       child: Padding(
         padding: EdgeInsets.all(16.0),
@@ -87,7 +89,7 @@ class ReliefWidget extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Text(
-                    title,
+                    _title,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
@@ -96,14 +98,14 @@ class ReliefWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    text,
+                    _text,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,
                     ),
                   ),
-                  nextPage ? Icon(
+                  _nextPage ? Icon(
                     Icons.arrow_right,
                     color: Colors.white,
                   ) : SizedBox(height: 0,),

@@ -17,18 +17,18 @@ class HomePageBody extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height / 2,
           ),
-          HomeWidget(StressLevelOverview(true)),
-          HomeWidget(MusicPage(true)),
+          _HomeWidget(StressLevelOverview(true)),
+          _HomeWidget(MusicPage(true)),
         ],
       ),
     );
   }
 }
 
-class HomeWidget extends StatelessWidget {
-  final child;
+class _HomeWidget extends StatelessWidget {
+  final _child;
 
-  HomeWidget(this.child);
+  _HomeWidget(this._child);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class HomeWidget extends StatelessWidget {
       padding: EdgeInsets.all(16.0),
       child: Container(
         height: 250,
-        child: child,
+        child: _child,
       ),
     );
   }

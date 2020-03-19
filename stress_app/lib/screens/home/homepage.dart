@@ -16,12 +16,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static List<Widget> _widgetOptions = <Widget>[
-    HomePageBody(),
-    StressReliefPage(),
-    StressLevelOverview(false)
+  List<BottomBarPage> _widgetOptions = [
+    BottomBarPage(HomePageBody(), Icon(Icons.home)),
+    BottomBarPage(StressReliefPage(), Icon(Icons.healing)),
+    BottomBarPage(StressLevelOverview(false), Icon(Icons.table_chart))
   ];
 
   void _onItemTapped(int index) {
@@ -35,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       drawer: SideDrawer(context),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: _widgetOptions.elementAt(_selectedIndex).page,
       ),
       bottomNavigationBar: BottomBar(this),
     );
@@ -55,44 +53,48 @@ class BottomBar extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            IconButton(
-              color: Colors.white,
-              icon: Icon(Icons.menu),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            ),
-            IconButton(
-              color: parent._selectedIndex == 0 ? Colors.grey : Colors.white,
-              splashColor: Colors.transparent,
-              iconSize: parent._selectedIndex == 0 ? 30 : 24,
-              icon: Icon(Icons.home),
-              onPressed: () {
-                parent._onItemTapped(0);
-              },
-            ),
-            IconButton(
-              color: parent._selectedIndex == 1 ? Colors.grey : Colors.white,
-              splashColor: Colors.transparent,
-              iconSize: parent._selectedIndex == 1 ? 30 : 24,
-              icon: Icon(Icons.healing),
-              onPressed: () {
-                parent._onItemTapped(1);
-              },
-            ),
-            IconButton(
-              color: parent._selectedIndex == 2 ? Colors.grey : Colors.white,
-              splashColor: Colors.transparent,
-              iconSize: parent._selectedIndex == 2 ? 30 : 24,
-              icon: Icon(Icons.table_chart),
-              onPressed: () {
-                parent._onItemTapped(2);
-              },
-            ),
-          ],
+          children: _generateButtons(context),
         ),
       ),
     );
   }
+  
+  List<IconButton> _generateButtons(BuildContext context) {
+    List<IconButton> buttons = new List();
+    buttons.add(
+      IconButton(
+        color: Colors.white,
+        icon: Icon(Icons.menu), 
+        onPressed: () {
+          Scaffold.of(context).openDrawer();
+        },
+      )
+    );
+    
+    for(int i = 0; i < parent._widgetOptions.length; i++) {
+      bool selected = parent._selectedIndex == i;
+      IconButton button = 
+      IconButton(
+        color: selected ? Colors.grey : Colors.white,
+        splashColor: Colors.transparent,
+        iconSize: selected ? 30 : 24,
+        icon: parent._widgetOptions.elementAt(i).icon,
+        onPressed: () {
+          parent._onItemTapped(i);
+        },
+      );
+      buttons.add(button);
+    }
+    
+    return buttons;
+  }
+}
+
+class BottomBarPage {
+  final _page;
+  final _icon;
+
+  BottomBarPage(this._page, this._icon);
+  get icon => _icon;
+  get page => _page;
 }
