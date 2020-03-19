@@ -1,0 +1,20 @@
+Welcome to Samsung Health Android SDK!
+
+Samsung Health Android SDK includes 2 different packages.
+
+Refer to the following description: 
+
+1. Health Data
+
+  - It enables your app to read or write health data into the Samsung Health's health data store in the phone. 
+  - Health data sync with Samsung Health through the SDK's Data API is mandatory.
+  - The library, tool, and related documents are included in the "SamsungHealthSDK/Data" folder. 
+  
+2. Health Service
+
+  - It enables your app to jump to a specific tracker of Samsung Health directly.
+  - It provides your app's tracker tile definition which can post to the Samsung Health's main screen and handle related events.    
+  - The library, tool, and related documents are included in the "SamsungHealthSDK/Service" folder.
+  
+
+** To work properly with Samsung Health, please apply for partner at http://developer.samsung.com/health/android. ** 
