@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:stress_app/style/theme_colours.dart';
+
 class StressLevelOverview extends StatelessWidget {
   StressLevelOverview(this.widgetMode, {Key key, this.title}) : super(key: key);
 
@@ -123,7 +125,7 @@ class StressLevelOverview extends StatelessWidget {
     widgetVersion(context) :
     Container(
       decoration: BoxDecoration(
-        color: Color(0xff101010),
+        color: ThemeColours.SECONDARY_BACKGROUND_COLOR,
       ),
       child: Column(
         children: <Widget>[
@@ -143,7 +145,7 @@ class StressLevelOverview extends StatelessWidget {
       borderRadius: BorderRadius.circular(8.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xff424242),
+          color: ThemeColours.PRIMARY_BACKGROUND_COLOR,
         ),
         child: Column(
           children: <Widget>[

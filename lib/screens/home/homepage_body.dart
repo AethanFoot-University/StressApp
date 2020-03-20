@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:stress_app/screens/stress_level_overview.dart';
 import 'package:stress_app/screens/stress_relief/music_page.dart';
+import 'package:stress_app/style/theme_colours.dart';
+
+import '../../tools/CSVReader.dart';
+import '../graph_view/stress_graph.dart';
+import '../graph_view/stress_graph.dart';
 
 class HomePageBody extends StatelessWidget {
   @override
@@ -10,7 +15,7 @@ class HomePageBody extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
-        color: Color(0xff101010),
+        color: ThemeColours.SECONDARY_BACKGROUND_COLOR,
       ),
       child: ListView(
         children: <Widget>[
@@ -19,6 +24,12 @@ class HomePageBody extends StatelessWidget {
           ),
           _HomeWidget(StressLevelOverview(true)),
           _HomeWidget(MusicPage(true)),
+          _HomeWidget(FutureBuilder(
+            future: CSVReader("").getStressLevels(),
+            builder: (context, snapshot){
+                return StressGraph(snapshot.data);
+            },
+          ))
         ],
       ),
     );

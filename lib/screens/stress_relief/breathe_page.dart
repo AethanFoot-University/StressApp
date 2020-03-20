@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:stress_app/style/theme_colours.dart';
 
 class BreathePage extends StatefulWidget {
   final int num;
@@ -51,7 +52,7 @@ class _BreathePageState extends State<BreathePage> with TickerProviderStateMixin
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-          color: Color(0xff101010),
+          color: ThemeColours.SECONDARY_BACKGROUND_COLOR,
         ),
         child: Column(
             children: <Widget>[
@@ -102,7 +103,7 @@ class _BreathePageState extends State<BreathePage> with TickerProviderStateMixin
     for (var j = 1; j <= 9; j++) {
       for (var i = 0; i < _num; i++) {
         if (i <= amount * j && _colorMap[i] == null) {
-          _colorMap[i] = Colors.teal[j * 100];
+          _colorMap[i] = Colors.grey[j * 100];
         } else {
           continue;
         }
@@ -173,7 +174,7 @@ class _BreathePageState extends State<BreathePage> with TickerProviderStateMixin
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: _breatheAnimation.value > i ? _colorMap[i] : Colors.white,
+        color: _breatheAnimation.value > i ? _colorMap[i] : Colors.black,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: _colorMap[i],

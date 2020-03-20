@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:stress_app/screens/available_activities.dart';
 import 'package:stress_app/screens/graph_view/graph_analysis_view.dart';
+import 'package:stress_app/style/theme_colours.dart';
 import '../account_page.dart';
 
 class SideDrawer extends StatefulWidget {
@@ -41,7 +42,7 @@ class _SideDrawerState extends State<SideDrawer> {
               height: headerHeight,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                color: Color(0xff424242),
+                color:ThemeColours.PRIMARY_BACKGROUND_COLOR,
               ),
               child: DrawerHeader(
                 child: Text(
@@ -56,7 +57,7 @@ class _SideDrawerState extends State<SideDrawer> {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Color(0xff424242),
+                  color: ThemeColours.PRIMARY_BACKGROUND_COLOR,
                 ),
                 child: ListView(
                   controller: _sc,

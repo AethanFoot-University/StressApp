@@ -9,8 +9,12 @@ class ThemeColours{
   static Color TEXT_SECONDARY_COLOUR = Colors.grey;
   static Color TEXT_TERNARY_COLOUR = _Hex("#C8C8C8");
 
-  static Color PRIMARY_BACKGROUND_COLOR = _Hex("#2B2B2B");
-  static Color SECONDARY_BACKGROUND_COLOR = _Hex("#313335");
+  static Color PRIMARY_BACKGROUND_COLOR = _Hex("#212121");
+  static Color SECONDARY_BACKGROUND_COLOR = _Hex("#0C0C0C");
+
+  static Color PRIMARY_BUTTON_BACKGROUND = Colors.white;
+  static Color SECONDARY_BUTTON_BACKGROUND = _Hex("#0C0C0C");
+  
 
   static Color SIDE_BAR_COLOUR = _Hex("#383838");
 }

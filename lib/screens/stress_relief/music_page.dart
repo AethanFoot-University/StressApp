@@ -4,6 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:stress_app/style/theme_colours.dart';
 
 class MusicPage extends StatefulWidget {
   MusicPage(this.widgetMode, {Key key, this.title}) : super(key: key);
@@ -62,7 +63,7 @@ class _MusicPageState extends State<MusicPage> {
     Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          color: Color(0xff101010),
+          color: ThemeColours.SECONDARY_BACKGROUND_COLOR,
         ),
         child: ListView.separated(
           itemCount: names.length + 1,
@@ -91,7 +92,7 @@ class _MusicPageState extends State<MusicPage> {
       borderRadius: BorderRadius.circular(8.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xff424242),
+          color: ThemeColours.PRIMARY_BACKGROUND_COLOR,
         ),
         child: Column(
           children: <Widget>[

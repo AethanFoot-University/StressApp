@@ -45,7 +45,7 @@ class StressGraph extends StatelessWidget {
                   borderRadius: const BorderRadius.all(
                     Radius.circular(18),
                   ),
-                  color: ThemeColours.TEXT_PRIMARY_COLOUR),
+                  color: ThemeColours.PRIMARY_BACKGROUND_COLOR),
               child: Padding(
                 padding: const EdgeInsets.only(right: 18.0, left: 12.0, top: 24, bottom: 12),
                 child: LineChart(

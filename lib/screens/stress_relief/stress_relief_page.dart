@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stress_app/screens/stress_relief/breathe_page.dart';
 import 'package:stress_app/screens/stress_relief/music_page.dart';
+import 'package:stress_app/style/theme_colours.dart';
 
 class StressReliefPage extends StatelessWidget {
   @override
@@ -9,7 +10,7 @@ class StressReliefPage extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
-        color: Color(0xff101010),
+        color: ThemeColours.SECONDARY_BACKGROUND_COLOR,
       ),
       child: _BodyLayout(),
     );
@@ -78,9 +79,9 @@ class _ReliefWidget extends StatelessWidget {
         child: Container(
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: Color(0xff424242),
+              color: ThemeColours.PRIMARY_BACKGROUND_COLOR,
               border: Border.all(
-                color: Color(0xff424242),
+                color: ThemeColours.PRIMARY_BACKGROUND_COLOR,
               ),
               borderRadius: BorderRadius.circular(8),
             ),
