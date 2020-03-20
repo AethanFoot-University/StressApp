@@ -1,20 +1,25 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+import 'dart:core';
 import 'package:stress_app/data/StressLevel.dart';
+import 'package:stress_app/style/theme_colours.dart';
 
 class StressGraph extends StatelessWidget {
   List<StressLevel> data;
 
   StressGraph(this.data);
 
+  int _maxPlots = 7;
+
   List<FlSpot> getPlotData(){
     List<FlSpot> retList = new List();
-    int index=0;
-    for(StressLevel dataPoint in data){
-      index++;
-      retList.add(FlSpot(index * 1.0, dataPoint.stressLevel));
+
+    int increment = (data.length/_maxPlots).toInt();
+
+    for(int i=0; i< _maxPlots+1; i++){
+      print(i);
+      retList.add(FlSpot(i * 1.0, data[i*increment].stressLevel));
     }
 
     return retList;
@@ -40,7 +45,7 @@ class StressGraph extends StatelessWidget {
                   borderRadius: const BorderRadius.all(
                     Radius.circular(18),
                   ),
-                  color: const Color(0xff232d37)),
+                  color: ThemeColours.TEXT_PRIMARY_COLOUR),
               child: Padding(
                 padding: const EdgeInsets.only(right: 18.0, left: 12.0, top: 24, bottom: 12),
                 child: LineChart(
@@ -56,9 +61,7 @@ class StressGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: drawGraph(),
-    );
+    return  drawGraph();
 
   }
 
@@ -101,7 +104,8 @@ class StressGraph extends StatelessWidget {
           TextStyle(color: const Color(0xff68737d), fontWeight: FontWeight.bold, fontSize: 16),
           getTitles: (value) {
             if(value< data.length){
-              String newVal = DateFormat('EEEE').format(data[value.toInt()].time);
+              print(value);
+              String newVal = DateFormat('EEEE').format(data[value.toInt()*(data.length/_maxPlots).toInt()].time);
               return newVal.substring(0, 3);
             }
             return '';
@@ -125,7 +129,7 @@ class StressGraph extends StatelessWidget {
       borderData:
       FlBorderData(show: true, border: Border.all(color: const Color(0xff37434d), width: 1)),
       minX: 0,
-      maxX: data.length*1.0,
+      maxX: _maxPlots*1.0,
       minY: 0,
       maxY: max,
       lineBarsData: [

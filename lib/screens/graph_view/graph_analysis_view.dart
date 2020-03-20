@@ -22,6 +22,7 @@ class GraphAnalysisView extends StatelessWidget {
 
   Widget buildScaffold(BuildContext context, var levels){
     return Scaffold(
+      backgroundColor: Colors.black,
       body: BodyLayout(context, levels),
       floatingActionButton: Container(
         padding: EdgeInsets.only(left: 24.0),
@@ -46,16 +47,7 @@ class BodyLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 50,
-          ),
-          Expanded(
-            child: StressGraph(levels),
-          ),
-        ],
-      ),
+      child: StressGraph(levels),
     );
   }
 }
