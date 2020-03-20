@@ -15,33 +15,33 @@ class BreathePage extends StatefulWidget {
 }
 
 class _BreathePageState extends State<BreathePage> with TickerProviderStateMixin {
-  Animation<double> breatheAnimation;
-  AnimationController breatheController;
-  Tween<double> breatheTween;
+  Animation<double> _breatheAnimation;
+  AnimationController _breatheController;
+  Tween<double> _breatheTween;
 
-  Animation<double> textAnimation;
-  AnimationController textController;
-  Tween<double> textTween;
+  Animation<double> _textAnimation;
+  AnimationController _textController;
+  Tween<double> _textTween;
 
-  List<String> lines = [
+  List<String> _lines = [
     'Make sure your in a comfortable position',
     'Relax your shoulders',
     'Breathe in through your nose and out through your mouth with the animation',
     'Make sure your stomach is moving out while your chest remains still'
   ];
-  int pos = 0;
+  int _pos = 0;
 
-  var colorMap = new Map();
-  final int num;
+  var _colorMap = new Map();
+  final int _num;
 
-  _BreathePageState(this.num);
+  _BreathePageState(this._num);
 
   @override
   void initState() {
     super.initState();
-    generateColorMap();
-    setupBreathe();
-    setupText();
+    _generateColorMap();
+    _setupBreathe();
+    _setupText();
   }
 
   @override
@@ -60,14 +60,14 @@ class _BreathePageState extends State<BreathePage> with TickerProviderStateMixin
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: breathe(context),
+                children: _breathe(context),
               ),
               Center(
                 child: Text(
-                  lines[pos],
+                  _lines[_pos],
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.white.withOpacity(textAnimation.value),
+                    color: Colors.white.withOpacity(_textAnimation.value),
                     fontWeight: FontWeight.bold,
                     fontSize: 25,
                   ),
@@ -92,17 +92,17 @@ class _BreathePageState extends State<BreathePage> with TickerProviderStateMixin
 
   @override
   void dispose() {
-    breatheController.dispose();
-    textController.dispose();
+    _breatheController.dispose();
+    _textController.dispose();
     super.dispose();
   }
 
-  void generateColorMap() {
-    double amount = num / 9;
+  void _generateColorMap() {
+    double amount = _num / 9;
     for (var j = 1; j <= 9; j++) {
-      for (var i = 0; i < num; i++) {
-        if (i <= amount * j && colorMap[i] == null) {
-          colorMap[i] = Colors.teal[j * 100];
+      for (var i = 0; i < _num; i++) {
+        if (i <= amount * j && _colorMap[i] == null) {
+          _colorMap[i] = Colors.teal[j * 100];
         } else {
           continue;
         }
@@ -110,55 +110,55 @@ class _BreathePageState extends State<BreathePage> with TickerProviderStateMixin
     }
   }
 
-  void setupBreathe() {
-    breatheController = AnimationController(duration: const Duration(seconds: 3), vsync: this);
-    breatheController.addStatusListener((status) {
+  void _setupBreathe() {
+    _breatheController = AnimationController(duration: const Duration(seconds: 3), vsync: this);
+    _breatheController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        breatheController.reverse();
+        _breatheController.reverse();
       } else if (status == AnimationStatus.dismissed) {
-        breatheController.forward();
+        _breatheController.forward();
       }
     });
-    breatheTween = Tween<double>(begin: -(num / 10), end: num.toDouble() + (num / 10));
-    breatheAnimation = breatheTween.animate(breatheController)
+    _breatheTween = Tween<double>(begin: -(_num / 10), end: _num.toDouble() + (_num / 10));
+    _breatheAnimation = _breatheTween.animate(_breatheController)
       ..addListener(() {
         setState(() {});
       });
-    breatheController.forward();
+    _breatheController.forward();
   }
 
-  void setupText() {
-    textController = AnimationController(duration: const Duration(seconds: 3), vsync: this);
-    textController.addStatusListener((status) {
+  void _setupText() {
+    _textController = AnimationController(duration: const Duration(seconds: 3), vsync: this);
+    _textController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        textController.reverse();
+        _textController.reverse();
       } else if (status == AnimationStatus.dismissed) {
         setState(() {
-          pos < lines.length - 1 ? pos++ : pos = 0;
+          _pos < _lines.length - 1 ? _pos++ : _pos = 0;
         });
-        textController.forward();
+        _textController.forward();
       }
     });
-    textTween = Tween<double>(begin: 0, end: 1);
-    textAnimation = textTween.animate(textController)
+    _textTween = Tween<double>(begin: 0, end: 1);
+    _textAnimation = _textTween.animate(_textController)
       ..addListener(() {
         setState(() {});
       });
-    textController.forward();
+    _textController.forward();
   }
 
-  List<Widget> breathe(BuildContext context) {
+  List<Widget> _breathe(BuildContext context) {
     List<Widget> containers = new List();
     double maxWidth = MediaQuery.of(context).size.width - 32;
     //double minWidth = maxWidth / 3;
     //double actualMin;
 
-    for (var i = 0; i < num; i++) {
-      if (maxWidth * (cos((pi / num) * i)).abs() < 1) {
+    for (var i = 0; i < _num; i++) {
+      if (maxWidth * (cos((pi / _num) * i)).abs() < 1) {
         //if (actualMin == null) actualMin = maxWidth * (cos((pi / num) * i)).abs();
-        containers.add(createContainer(2 * (maxWidth * (cos((pi / num) * (i + 1))).abs()) / 3, 24, i));
+        containers.add(_createContainer(2 * (maxWidth * (cos((pi / _num) * (i + 1))).abs()) / 3, 24, i));
       } else {
-        containers.add(createContainer(maxWidth * (cos((pi / num) * i)).abs(), 24, i));
+        containers.add(_createContainer(maxWidth * (cos((pi / _num) * i)).abs(), 24, i));
       }
       containers.add(SizedBox(
         height: 15,
@@ -168,15 +168,15 @@ class _BreathePageState extends State<BreathePage> with TickerProviderStateMixin
     return containers;
   }
 
-  Widget createContainer(double width, double height, int i) {
+  Widget _createContainer(double width, double height, int i) {
     return Container(
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: breatheAnimation.value > i ? colorMap[i] : Colors.white,
+        color: _breatheAnimation.value > i ? _colorMap[i] : Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: colorMap[i],
+          color: _colorMap[i],
           width: 2,
         ),
       ),

@@ -16,13 +16,13 @@ class SideDrawer extends StatefulWidget {
 
 class _SideDrawerState extends State<SideDrawer> {
   final BuildContext context;
-  ScrollController sc;
+  ScrollController _sc;
 
   _SideDrawerState(this.context);
 
   @override
   void initState() {
-    sc = ScrollController(initialScrollOffset: ((MediaQuery.of(this.context).size.height) / 2));
+    _sc = ScrollController(initialScrollOffset: ((MediaQuery.of(this.context).size.height) / 2));
     super.initState();
   }
 
@@ -59,7 +59,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   color: Color(0xff424242),
                 ),
                 child: ListView(
-                  controller: sc,
+                  controller: _sc,
                   padding: EdgeInsets.zero,
                   children: <Widget>[
                     Container(
