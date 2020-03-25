@@ -18,7 +18,6 @@ class StressGraph extends StatelessWidget {
     int increment = (data.length/_maxPlots).toInt();
 
     for(int i=0; i< _maxPlots+1; i++){
-      print(i);
       retList.add(FlSpot(i * 1.0, data[i*increment].stressLevel));
     }
 
@@ -45,7 +44,7 @@ class StressGraph extends StatelessWidget {
                   borderRadius: const BorderRadius.all(
                     Radius.circular(18),
                   ),
-                  color: ThemeColours.PRIMARY_BACKGROUND_COLOR),
+                  color: ThemeColours.SECONDARY_BACKGROUND_COLOR),
               child: Padding(
                 padding: const EdgeInsets.only(right: 18.0, left: 12.0, top: 24, bottom: 12),
                 child: LineChart(
@@ -66,8 +65,7 @@ class StressGraph extends StatelessWidget {
   }
 
   List<Color> gradientColors = [
-    const Color(0xff23b6e6),
-    const Color(0xff02d39a),
+    ThemeColours.TEXT_PRIMARY_COLOUR,
   ];
 
   String lastValue = " ";
@@ -104,7 +102,6 @@ class StressGraph extends StatelessWidget {
           TextStyle(color: const Color(0xff68737d), fontWeight: FontWeight.bold, fontSize: 16),
           getTitles: (value) {
             if(value< data.length){
-              print(value);
               String newVal = DateFormat('EEEE').format(data[value.toInt()*(data.length/_maxPlots).toInt()].time);
               return newVal.substring(0, 3);
             }

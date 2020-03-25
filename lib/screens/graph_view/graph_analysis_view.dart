@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stress_app/screens/graph_view/date_picker.dart';
 
 import 'package:stress_app/screens/graph_view/stress_graph.dart';
 import 'package:stress_app/style/theme_colours.dart';
@@ -45,10 +46,28 @@ class BodyLayout extends StatelessWidget {
 
   BodyLayout(this.parentContext, this.levels);
 
+
+  Widget buildText(){
+    return RichText(
+        text: TextSpan(
+              style: TextStyle(color: ThemeColours.TEXT_PRIMARY_COLOUR, fontSize: 50),
+              children: <TextSpan>[
+                TextSpan(text: "Stress")
+              ]
+    )
+
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: StressGraph(levels),
+    return Column(
+      children: <Widget>[ SizedBox(height: 30,),
+                buildText(),
+                StressGraph(levels),
+                Expanded( child: Container()),
+                DatePicker(),
+                SizedBox(height: 100)]
     );
   }
 }
