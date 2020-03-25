@@ -8,8 +8,10 @@ import 'package:stress_app/data/StressLevel.dart';
 import 'package:stress_app/style/theme_colours.dart';
 
 class DatePicker extends StatelessWidget {
+  List<DateTime> dates;
+  Function(DateTime) dateChanged;
 
-  DatePicker();
+  DatePicker({this.dates, this.dateChanged});
 
 
 
@@ -23,17 +25,12 @@ class DatePicker extends StatelessWidget {
      mainAxisAlignment: MainAxisAlignment.center,
      children: <Widget>[
        DatePickerTimeline(
-      DateTime.now(),
-         onDateChange: (date) {
-           // New date selected
-           print(date.day.toString());
-         },
-         startDate: DateTime.now().add(Duration(days: -20)),
+         onDateChange: dateChanged,
+         dates: dates,
          selectionColor: ThemeColours.SECONDARY_BACKGROUND_COLOR,
          dayTextStyle: TextStyle(color: Colors.white),
          dateTextStyle: TextStyle(color: Colors.white),
          monthTextStyle: TextStyle(color: Colors.white),
-         daysCount: 10,
          
 
        ),

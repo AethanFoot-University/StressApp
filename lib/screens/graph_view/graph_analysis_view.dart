@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stress_app/data/StressLevel.dart';
 import 'package:stress_app/screens/graph_view/date_picker.dart';
 
 import 'package:stress_app/screens/graph_view/stress_graph.dart';
@@ -66,7 +67,12 @@ class BodyLayout extends StatelessWidget {
                 buildText(),
                 StressGraph(levels),
                 Expanded( child: Container()),
-                DatePicker(),
+                DatePicker(
+                  dates: StressLevel.GetSeparateDays(levels),
+                  dateChanged: (date){
+                    print(date);
+                  },
+                ),
                 SizedBox(height: 100)]
     );
   }
