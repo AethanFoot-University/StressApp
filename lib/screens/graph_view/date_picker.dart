@@ -9,7 +9,7 @@ import 'package:stress_app/style/theme_colours.dart';
 
 class DatePicker extends StatelessWidget {
   List<DateTime> dates;
-  Function(DateTime) dateChanged;
+  Function(DateTime, DatePickerTimeline) dateChanged;
 
   DatePicker({this.dates, this.dateChanged});
 

@@ -24,4 +24,17 @@ class StressLevel{
     }
       return nonRedundant;
   }
-}
+
+  static List<StressLevel> GetByDay(List<StressLevel> levels, DateTime date){
+    List<StressLevel> newLevels = new List<StressLevel>();
+
+    for(StressLevel level in levels) if(date.day==level.time.day &&date.month==level.time.month
+        &&date.year==level.time.year) {
+      newLevels.add(level);
+      print(level);
+    }
+
+      return newLevels;
+    }
+  }
+

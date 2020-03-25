@@ -27,7 +27,12 @@ class HomePageBody extends StatelessWidget {
           _HomeWidget(FutureBuilder(
             future: CSVReader("").getStressLevels(),
             builder: (context, snapshot){
+              if(snapshot.hasData){
                 return StressGraph(snapshot.data);
+              }
+              else{
+                return Text("Loading");
+              }
             },
           ))
         ],

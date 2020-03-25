@@ -81,7 +81,7 @@ class _DatePickerState extends State<DatePickerTimeline> {
           onDateSelected: (selectedDate) {
             // A date is selected
             if (widget.onDateChange != null) {
-              widget.onDateChange(selectedDate);
+              widget.onDateChange(selectedDate, widget);
             }
             setState(() {
               widget.currentDate = selectedDate;
