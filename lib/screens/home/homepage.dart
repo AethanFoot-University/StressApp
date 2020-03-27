@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 import 'package:stress_app/screens/home/app_drawer.dart';
 import 'package:stress_app/screens/home/homepage_body.dart';
@@ -17,9 +18,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   List<BottomBarPage> _widgetOptions = [
-    BottomBarPage(HomePageBody(), Icon(Icons.home)),
-    BottomBarPage(StressReliefPage(), Icon(Icons.healing)),
-    BottomBarPage(StressLevelOverview(false), Icon(Icons.table_chart))
+    BottomBarPage(HomePageBody(), Icon(OMIcons.home)),
+    BottomBarPage(StressReliefPage(), Icon(OMIcons.healing)),
+    BottomBarPage(StressLevelOverview(false), Icon(OMIcons.tableChart))
   ];
 
   void _onItemTapped(int index) {
@@ -31,20 +32,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    Json.readUser('Aethan').then
-      ((value) {
-        setState(() {
-          User.currentUser = value;
-          print(User.currentUser.name);
-        });
-        },
-        onError: (e) {
-          setState(() {
-            User.currentUser = new User('Aethan', 'ajf75@bath.ac.uk', [0, 1], List());
-            Json.saveUser(User.currentUser);
-          });
-        }
-      );
     MusicPage.player = AudioPlayer();
   }
 
@@ -53,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return User.currentUser == null ? Center(child: CircularProgressIndicator()):
     Scaffold(
       drawer: SideDrawer(context),
+      backgroundColor: Color(0xff101010),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex).page,
       ),
@@ -85,7 +73,7 @@ class BottomBar extends StatelessWidget {
     buttons.add(
       IconButton(
         color: Colors.white,
-        icon: Icon(Icons.menu), 
+        icon: Icon(OMIcons.menu),
         onPressed: () {
           Scaffold.of(context).openDrawer();
         },
@@ -96,9 +84,8 @@ class BottomBar extends StatelessWidget {
       bool selected = parent._selectedIndex == i;
       IconButton button = 
       IconButton(
-        color: selected ? Colors.grey : Colors.white,
+        color: selected ? Colors.green : Colors.white,
         splashColor: Colors.transparent,
-        iconSize: selected ? 30 : 24,
         icon: parent._widgetOptions.elementAt(i).icon,
         onPressed: () {
           parent._onItemTapped(i);

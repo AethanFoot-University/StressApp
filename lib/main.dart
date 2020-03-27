@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:stress_app/screens/signin_page.dart';
+import 'package:stress_app/screens/sign_in_page.dart';
 
 void main() => runApp(MyApp());
 

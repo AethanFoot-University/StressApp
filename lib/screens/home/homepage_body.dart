@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 import 'package:stress_app/data/User.dart';
 import 'package:stress_app/screens/stress_level_overview.dart';
@@ -32,6 +33,7 @@ class _HomePageBodyState extends State<HomePageBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff101010),
       floatingActionButton: FloatingActionButton(
         mini: true,
         elevation: 0.0,
@@ -43,7 +45,7 @@ class _HomePageBodyState extends State<HomePageBody> {
         splashColor: Colors.transparent,
         backgroundColor: Colors.white,
         foregroundColor: Color(0xff0c0c0c),
-        child: Icon(Icons.edit),
+        child: editing ? Icon(OMIcons.save) : Icon(OMIcons.edit),
         onPressed: () {
           if (editing && changed) {
             Json.saveUser(User.currentUser);
@@ -56,7 +58,7 @@ class _HomePageBodyState extends State<HomePageBody> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          color: Color(0xff101010),
+          //color: Color(0xff101010),
         ),
         child: ListView.builder(
           itemCount: children.length + 1,
@@ -87,19 +89,22 @@ class _HomeWidget extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Expanded(
-              child: child,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: child,
+              ),
             ),
             parent.editing ? Column(
               children: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.keyboard_arrow_up),
+                  icon: Icon(OMIcons.keyboardArrowUp),
                   color: Colors.white,
                   onPressed: () {
                     if (pos != 0) updatePos(pos - 1);
                   },
                 ),
                 IconButton(
-                  icon: Icon(Icons.keyboard_arrow_down),
+                  icon: Icon(OMIcons.keyboardArrowDown),
                   color: Colors.white,
                   onPressed: () {
                     if (pos != parent.children.length - 1) updatePos(pos + 1);

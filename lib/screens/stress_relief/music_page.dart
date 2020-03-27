@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:stress_app/data/User.dart';
 import 'package:stress_app/tools/Json.dart';
@@ -16,6 +17,7 @@ class MusicPage extends StatefulWidget {
   static bool loop = false;
   static int currentPos = 0;
   static String currentlyPlaying = '';
+  static String previouslyPlayed = '';
   static List<String> musicList = new List();
 
   MusicPage(this.isWidget, {Key key, this.title}) : super(key: key);
@@ -72,6 +74,8 @@ class _MusicPageState extends State<MusicPage> {
 
   @override
   Widget build(BuildContext context) {
+    MusicPage.playing ? player.resume() : player.pause();
+
     return isWidget ? _widget() : _page();
   }
 
@@ -100,9 +104,9 @@ class _MusicPageState extends State<MusicPage> {
   }
 
   Widget _widget() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(8.0),
-      child: Container(
+    MusicPage.playing ? videoController.play() : videoController.pause();
+
+    return Container(
         decoration: BoxDecoration(
           color: Color(0xff424242),
         ),
@@ -138,7 +142,6 @@ class _MusicPageState extends State<MusicPage> {
             ),
           ],
         )
-      ),
     );
   }
 
@@ -148,13 +151,13 @@ class _MusicPageState extends State<MusicPage> {
       title: Text(
         title,
         style: TextStyle(
-          color: Colors.white,
+          color: name == MusicPage.currentlyPlaying ? Colors.green : Colors.white,
           fontWeight: FontWeight.bold,
         ),
       ),
       trailing: IconButton(
         color: MusicPage.musicList.contains(name) ? Colors.green : Colors.white,
-        icon: Icon(Icons.add),
+        icon: Icon(OMIcons.add),
         onPressed: () {
           setState(() {
             MusicPage.musicList.contains(name) ? MusicPage.musicList.remove(name) : MusicPage.musicList.add(name);
@@ -202,13 +205,13 @@ class _BottomBar extends StatelessWidget {
                 IconButton(
                   splashColor: Colors.transparent,
                   color: Colors.white,
-                  icon: Icon(Icons.arrow_back),
+                  icon: Icon(OMIcons.keyboardArrowLeft),
                   onPressed: () => Navigator.pop(context),
                 ),
                 IconButton(
                   splashColor: Colors.transparent,
                   color: Colors.transparent,
-                  icon: Icon(Icons.arrow_back),
+                  icon: Icon(null),
                   onPressed: () {},
                 ),
               ],
@@ -220,7 +223,7 @@ class _BottomBar extends StatelessWidget {
                 IconButton(
                   splashColor: Colors.transparent,
                   color: MusicPage.loop ? Colors.green : Colors.white,
-                  icon: Icon(Icons.loop),
+                  icon: Icon(OMIcons.loop),
                   onPressed: () {
                     parent.setState(() {
                       MusicPage.loop = !MusicPage.loop;
@@ -230,7 +233,7 @@ class _BottomBar extends StatelessWidget {
                 IconButton(
                   splashColor: Colors.transparent,
                   color: Colors.white,
-                  icon: Icon(Icons.save),
+                  icon: Icon(OMIcons.save),
                   onPressed: () {
                     User.currentUser.musicList = MusicPage.musicList;
                     Json.saveUser(User.currentUser);
@@ -270,7 +273,7 @@ class _MediaPlayer extends StatelessWidget {
         IconButton(
           splashColor: Colors.transparent,
           color: Colors.white,
-          icon: Icon(Icons.fast_rewind),
+          icon: Icon(OMIcons.fastRewind),
           onPressed: () async {
             if (MusicPage.playerSet) {
               MusicPage.currentPos == 0 ? MusicPage.currentPos = MusicPage.musicList.length - 1 : MusicPage.currentPos--;
@@ -281,19 +284,18 @@ class _MediaPlayer extends StatelessWidget {
         IconButton(
           splashColor: Colors.transparent,
           color: Colors.white,
-          icon: MusicPage.playing ? Icon(Icons.pause) : Icon(Icons.play_arrow),
+          icon: MusicPage.playing ? Icon(OMIcons.pause) : Icon(OMIcons.playArrow),
           onPressed: () {
             if (MusicPage.playerSet) {
               if (!MusicPage.playing) {
-                parent.player.resume();
-                parent.videoController.play();
                 parent.setState(() {
+                  MusicPage.currentlyPlaying = MusicPage.previouslyPlayed;
                   MusicPage.playing = true;
                 });
               } else {
-                parent.player.pause();
-                parent.videoController.pause();
                 parent.setState(() {
+                  MusicPage.previouslyPlayed = MusicPage.currentlyPlaying;
+                  MusicPage.currentlyPlaying = '';
                   MusicPage.playing = false;
                 });
               }
@@ -306,7 +308,7 @@ class _MediaPlayer extends StatelessWidget {
         IconButton(
           splashColor: Colors.transparent,
           color: Colors.white,
-          icon: Icon(Icons.fast_forward),
+          icon: Icon(OMIcons.fastForward),
           onPressed: () async {
             if (MusicPage.playerSet) {
               MusicPage.currentPos == MusicPage.musicList.length - 1 ? MusicPage.currentPos = 0 : MusicPage.currentPos++;

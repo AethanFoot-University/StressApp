@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:stress_app/screens/stress_relief/breathe_page.dart';
 import 'package:stress_app/screens/stress_relief/music_page.dart';
 
@@ -106,7 +107,7 @@ class _ReliefWidget extends StatelessWidget {
                     ),
                   ),
                   _nextPage ? Icon(
-                    Icons.arrow_right,
+                    OMIcons.keyboardArrowRight,
                     color: Colors.white,
                   ) : SizedBox(height: 0,),
                 ],

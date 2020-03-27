@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 class BreathePage extends StatefulWidget {
   final int num;
@@ -75,7 +76,7 @@ class _BreathePageState extends State<BreathePage> with TickerProviderStateMixin
                     child: IconButton(
                       splashColor: Colors.transparent,
                       icon: Icon(
-                        Icons.arrow_back,
+                        OMIcons.keyboardArrowLeft,
                         color: Colors.white,
                       ),
                       onPressed: () => Navigator.pop(context),
