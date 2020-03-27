@@ -1,15 +1,15 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 import 'package:stress_app/screens/home/app_drawer.dart';
 import 'package:stress_app/screens/home/homepage_body.dart';
 import 'package:stress_app/screens/stress_level_overview.dart';
+import 'package:stress_app/screens/stress_relief/music_page.dart';
 import 'package:stress_app/screens/stress_relief/stress_relief_page.dart';
+import 'package:stress_app/data/User.dart';
+import 'package:stress_app/tools/Json.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -29,8 +29,29 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    Json.readUser('Aethan').then
+      ((value) {
+        setState(() {
+          User.currentUser = value;
+          print(User.currentUser.name);
+        });
+        },
+        onError: (e) {
+          setState(() {
+            User.currentUser = new User('Aethan', 'ajf75@bath.ac.uk', [0, 1], List());
+            Json.saveUser(User.currentUser);
+          });
+        }
+      );
+    MusicPage.player = AudioPlayer();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return User.currentUser == null ? Center(child: CircularProgressIndicator()):
+    Scaffold(
       drawer: SideDrawer(context),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex).page,

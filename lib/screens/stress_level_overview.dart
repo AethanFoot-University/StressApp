@@ -79,17 +79,17 @@ class StressLevelOverview extends StatelessWidget {
     return DataRow(cells: cells);
   }
 
-  Widget generateDataTable(BuildContext context) {
+  Widget generateDataTable(BuildContext context, double width) {
     List<DataRow> rows = new List<DataRow>();
 
     for(int h =0; h < 24; h++){
       rows.add(generateRow(DATA_COLUMNS.length, "$h:00", context));
     }
 
-    return DataTable(columns: getColumns(), rows: rows, columnSpacing: ((MediaQuery.of(context).size.width - 250) / 9) - 1,);
+    return DataTable(columns: getColumns(), rows: rows, columnSpacing: ((width - 250) / 9) - 1,);
   }
 
-  Widget generateStressTable(BuildContext context) => LayoutBuilder(
+  Widget generateStressTable(BuildContext context, double width) => LayoutBuilder(
     builder: (context, constraints) => SingleChildScrollView(
       child: Column(
         children: [
@@ -105,8 +105,8 @@ class StressLevelOverview extends StatelessWidget {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: ConstrainedBox(
-                constraints: BoxConstraints(minWidth: constraints.minWidth, maxWidth: MediaQuery.of(context).size.width),
-                child: generateDataTable(context),
+                constraints: BoxConstraints(minWidth: constraints.minWidth, maxWidth: width),
+                child: generateDataTable(context, width),
               ),
             ),
           ),
@@ -131,7 +131,7 @@ class StressLevelOverview extends StatelessWidget {
             height: 16,
           ),
           Expanded(
-            child: generateStressTable(context),
+            child: generateStressTable(context, MediaQuery.of(context).size.width),
           ),
         ],
       ),
@@ -151,7 +151,7 @@ class StressLevelOverview extends StatelessWidget {
               height: 16,
             ),
             Expanded(
-              child: generateStressTable(context),
+              child: generateStressTable(context, MediaQuery.of(context).size.width - 32),
             ),
           ],
         ),

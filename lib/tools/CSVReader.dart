@@ -10,7 +10,7 @@ class CSVReader {
   CSVReader(@required this._currentPath);
 
   Future<List<StressLevel>> getStressLevels() {
-    return   Future(() async {
+    return Future(() async {
       List<StressLevel> testStress = new List();
       List<List<String>> rows = await readCSV('');
 

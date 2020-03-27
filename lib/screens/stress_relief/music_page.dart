@@ -4,29 +4,37 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:stress_app/data/User.dart';
+import 'package:stress_app/tools/Json.dart';
+import 'package:video_player/video_player.dart';
 
 class MusicPage extends StatefulWidget {
-  MusicPage(this.widgetMode, {Key key, this.title}) : super(key: key);
+  static AudioPlayer player;
+  static File currentFile;
+  static bool playing = false;
+  static bool playerSet = false;
+  static bool loop = false;
+  static int currentPos = 0;
+  static String currentlyPlaying = '';
+  static List<String> musicList = new List();
 
-  final widgetMode;
+  MusicPage(this.isWidget, {Key key, this.title}) : super(key: key);
+
+  final isWidget;
   final String title;
 
   @override
-  _MusicPageState createState() => _MusicPageState(widgetMode);
+  _MusicPageState createState() => _MusicPageState(isWidget, player);
 }
 
 class _MusicPageState extends State<MusicPage> {
-  final widgetMode;
+  _MusicPageState(this.isWidget, this.player);
 
-  _MusicPageState(this.widgetMode);
+  final isWidget;
 
-  AudioPlayer player;
-  File currentFile;
-  bool playing = false;
-  bool playerSet = false;
-  bool loop = false;
-  int currentPos = 0;
-  List<String> musicList = new List();
+  VideoPlayerController videoController;
+
+  final AudioPlayer player;
 
   List<String> names = [
     'Relaxing_Green_Nature',
@@ -48,25 +56,36 @@ class _MusicPageState extends State<MusicPage> {
   @override
   void initState() {
     super.initState();
-    player = AudioPlayer();
+    videoController = VideoPlayerController.asset('assets/videos/Music_Animation.mp4')
+      ..initialize().then((_) {
+        videoController.setLooping(true);
+        setState(() {});
+      });
+
     player.onPlayerCompletion.listen((event) async {
-      currentPos == musicList.length - 1 ? currentPos = 0 : currentPos++;
-      loop ? await player.play(currentFile.path, isLocal: true) : _loadMusic(musicList[currentPos]);
+      MusicPage.currentPos == MusicPage.musicList.length - 1 ? MusicPage.currentPos = 0 : MusicPage.currentPos++;
+      MusicPage.loop ? await player.play(MusicPage.currentFile.path, isLocal: true) : _loadMusic(MusicPage.musicList[MusicPage.currentPos]);
     });
+
+    if (User.currentUser.musicList != null) MusicPage.musicList = User.currentUser.musicList;
   }
 
   @override
   Widget build(BuildContext context) {
-    return widgetMode ?
-    _widgetVersion() :
-    Scaffold(
+    return isWidget ? _widget() : _page();
+  }
+
+  Widget _page() {
+    return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           color: Color(0xff101010),
         ),
         child: ListView.separated(
           itemCount: names.length + 1,
-          separatorBuilder: (BuildContext context, int index) => Divider(),
+          separatorBuilder: (BuildContext context, int index) => Divider(
+            color: Colors.white,
+          ),
           itemBuilder: (BuildContext context, int index) {
             return index == 0 ?
             Container(
@@ -80,13 +99,7 @@ class _MusicPageState extends State<MusicPage> {
     );
   }
 
-  @override
-  void dispose() {
-    player.stop();
-    super.dispose();
-  }
-
-  Widget _widgetVersion() {
+  Widget _widget() {
     return ClipRRect(
       borderRadius: BorderRadius.circular(8.0),
       child: Container(
@@ -95,39 +108,33 @@ class _MusicPageState extends State<MusicPage> {
         ),
         child: Column(
           children: <Widget>[
-            Expanded(
-              child: ListView.separated(
-                itemCount: names.length,
-                separatorBuilder: (BuildContext context, int index) => Divider(),
-                itemBuilder: (BuildContext context, int index) {
-                  return _createTile(names[index]);
-                },
+            _MediaPlayer(this),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                MusicPage.currentlyPlaying == '' ? 'Nothing Playing' : MusicPage.currentlyPlaying.replaceAll('_', ' '),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: IconButton(
-                splashColor: Colors.transparent,
-                color: Colors.white,
-                icon: playing ? Icon(Icons.pause) : Icon(Icons.play_arrow),
-                onPressed: () {
-                  if (playerSet) {
-                    if (!playing) {
-                      player.resume();
-                      setState(() {
-                        playing = true;
-                      });
-                    } else {
-                      player.pause();
-                      setState(() {
-                        playing = false;
-                      });
-                    }
-                  } else if(musicList.length > 0) {
-                    _loadMusic(musicList[currentPos]);
-                  }
-                },
+            Container(
+              height: 162,
+              width: 288,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                border: Border.all(
+                  width: 5,
+                ),
+                borderRadius: BorderRadius.circular(8.0),
               ),
+              child: videoController.value.initialized ?
+              AspectRatio(
+                aspectRatio: videoController.value.aspectRatio,
+                child: VideoPlayer(videoController),
+              ) : Container(),
             ),
           ],
         )
@@ -146,11 +153,11 @@ class _MusicPageState extends State<MusicPage> {
         ),
       ),
       trailing: IconButton(
-        color: musicList.contains(name) ? Colors.green : Colors.white,
+        color: MusicPage.musicList.contains(name) ? Colors.green : Colors.white,
         icon: Icon(Icons.add),
         onPressed: () {
           setState(() {
-            musicList.contains(name) ? musicList.remove(name) : musicList.add(name);
+            MusicPage.musicList.contains(name) ? MusicPage.musicList.remove(name) : MusicPage.musicList.add(name);
           });
         },
       ),
@@ -162,11 +169,12 @@ class _MusicPageState extends State<MusicPage> {
   }
 
   Future _loadMusic(String name) async {
-    currentFile = new File('${(await getTemporaryDirectory()).path}/$name.mp3');
-    await currentFile.writeAsBytes((await _loadAsset(name)).buffer.asUint8List());
-    final result = await player.play(currentFile.path, isLocal: true);
+    MusicPage.currentFile = new File('${(await getTemporaryDirectory()).path}/$name.mp3');
+    await MusicPage.currentFile.writeAsBytes((await _loadAsset(name)).buffer.asUint8List());
+    final result = await player.play(MusicPage.currentFile.path, isLocal: true);
     setState(() {
-      playerSet = playing = result == 1;
+      MusicPage.playerSet = MusicPage.playing = result == 1;
+      MusicPage.currentlyPlaying = name;
     });
   }
 
@@ -188,74 +196,125 @@ class _BottomBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            IconButton(
-              splashColor: Colors.transparent,
-              color: Colors.white,
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context),
-            ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 IconButton(
                   splashColor: Colors.transparent,
                   color: Colors.white,
-                  icon: Icon(Icons.fast_rewind),
-                  onPressed: () async {
-                    if (parent.playerSet) {
-                      parent.currentPos == 0 ? parent.currentPos = parent.musicList.length - 1 : parent.currentPos--;
-                      parent._loadMusic(parent.musicList[parent.currentPos]);
-                    }
-                  },
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.pop(context),
                 ),
                 IconButton(
                   splashColor: Colors.transparent,
-                  color: Colors.white,
-                  icon: parent.playing ? Icon(Icons.pause) : Icon(Icons.play_arrow),
-                  onPressed: () {
-                    if (parent.playerSet) {
-                      if (!parent.playing) {
-                        parent.player.resume();
-                        parent.setState(() {
-                          parent.playing = true;
-                        });
-                      } else {
-                        parent.player.pause();
-                        parent.setState(() {
-                          parent.playing = false;
-                        });
-                      }
-                    } else if(parent.musicList.length > 0) {
-                      parent._loadMusic(parent.musicList[parent.currentPos]);
-                    }
-                  },
-                ),
-                IconButton(
-                  splashColor: Colors.transparent,
-                  color: Colors.white,
-                  icon: Icon(Icons.fast_forward),
-                  onPressed: () async {
-                    if (parent.playerSet) {
-                      parent.currentPos == parent.musicList.length - 1 ? parent.currentPos = 0 : parent.currentPos++;
-                      parent._loadMusic(parent.musicList[parent.currentPos]);
-                    }
-                  },
+                  color: Colors.transparent,
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {},
                 ),
               ],
             ),
-            IconButton(
-              splashColor: Colors.transparent,
-              color: parent.loop ? Colors.green : Colors.white,
-              icon: Icon(Icons.loop),
-              onPressed: () {
-                parent.setState(() {
-                  parent.loop = !parent.loop;
-                });
-              },
-            ),
+            _MediaPlayer(parent),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                IconButton(
+                  splashColor: Colors.transparent,
+                  color: MusicPage.loop ? Colors.green : Colors.white,
+                  icon: Icon(Icons.loop),
+                  onPressed: () {
+                    parent.setState(() {
+                      MusicPage.loop = !MusicPage.loop;
+                    });
+                  },
+                ),
+                IconButton(
+                  splashColor: Colors.transparent,
+                  color: Colors.white,
+                  icon: Icon(Icons.save),
+                  onPressed: () {
+                    User.currentUser.musicList = MusicPage.musicList;
+                    Json.saveUser(User.currentUser);
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                        duration: Duration(seconds: 2),
+                        content: Text(
+                          'Saved your playlist',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
+                    );
+                  },
+                ),
+              ],
+            )
           ],
         ),
       ),
+    );
+  }
+}
+
+class _MediaPlayer extends StatelessWidget {
+  final _MusicPageState parent;
+
+  _MediaPlayer(this.parent);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        IconButton(
+          splashColor: Colors.transparent,
+          color: Colors.white,
+          icon: Icon(Icons.fast_rewind),
+          onPressed: () async {
+            if (MusicPage.playerSet) {
+              MusicPage.currentPos == 0 ? MusicPage.currentPos = MusicPage.musicList.length - 1 : MusicPage.currentPos--;
+              parent._loadMusic(MusicPage.musicList[MusicPage.currentPos]);
+            }
+          },
+        ),
+        IconButton(
+          splashColor: Colors.transparent,
+          color: Colors.white,
+          icon: MusicPage.playing ? Icon(Icons.pause) : Icon(Icons.play_arrow),
+          onPressed: () {
+            if (MusicPage.playerSet) {
+              if (!MusicPage.playing) {
+                parent.player.resume();
+                parent.videoController.play();
+                parent.setState(() {
+                  MusicPage.playing = true;
+                });
+              } else {
+                parent.player.pause();
+                parent.videoController.pause();
+                parent.setState(() {
+                  MusicPage.playing = false;
+                });
+              }
+            } else if(MusicPage.musicList.length > 0) {
+              parent.videoController.play();
+              parent._loadMusic(MusicPage.musicList[MusicPage.currentPos]);
+            }
+          },
+        ),
+        IconButton(
+          splashColor: Colors.transparent,
+          color: Colors.white,
+          icon: Icon(Icons.fast_forward),
+          onPressed: () async {
+            if (MusicPage.playerSet) {
+              MusicPage.currentPos == MusicPage.musicList.length - 1 ? MusicPage.currentPos = 0 : MusicPage.currentPos++;
+              parent._loadMusic(MusicPage.musicList[MusicPage.currentPos]);
+            }
+          },
+        ),
+      ],
     );
   }
 }
