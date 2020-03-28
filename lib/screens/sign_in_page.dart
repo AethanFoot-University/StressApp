@@ -50,51 +50,8 @@ class _SignInState extends State<SignIn> {
                       height: 40,
                       fit: BoxFit.cover,
                     ),
-                    onPressed: () async {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => FutureBuilder(
-                            future: Json.readUser('Aethan'),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasError) {
-                                User.currentUser = new User('Aethan', 'ajf75@bath.ac.uk', [0, 1], List());
-                                Json.saveUser(User.currentUser);
-                              } else if (snapshot.hasData) {
-                                User.currentUser = snapshot.data;
-                                print(User.currentUser.name);
-                              } else {
-                                return Center(
-                                  child: Text(
-                                    'Loading...',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                );
-                              }
-                              return MyHomePage();
-                            }
-                          )
-                        )
-                      );
-
-//                      await Json.readUser('Aethan').then
-//                        ((value) {
-//                          setState(() {
-//                            User.currentUser = value;
-//                            print(User.currentUser.name);
-//                          });
-//                        },
-//                        onError: (e) {
-//                          setState(() {
-//                            User.currentUser = new User('Aethan', 'ajf75@bath.ac.uk', [0, 1], List());
-//                            Json.saveUser(User.currentUser);
-//                          });
-//                        }
-//                      );
-//                      Navigator.push(context,
-//                          MaterialPageRoute(builder: (context) => MyHomePage()));
-                    }
+                    onPressed: () => Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MyHomePage())),
                   ),
                 ),
               ],

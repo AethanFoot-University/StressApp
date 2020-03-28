@@ -69,9 +69,8 @@ class StressLevelOverview extends StatelessWidget {
       cells.add(
         DataCell(
           Container(
-            width: 30, //SET width
-            decoration: new BoxDecoration(color: stressColor),
-            child: Text("")
+            height: 15.0,
+            decoration: BoxDecoration(color: stressColor),
           )
         )
       );

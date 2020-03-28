@@ -17,10 +17,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
-  List<BottomBarPage> _widgetOptions = [
-    BottomBarPage(HomePageBody(), Icon(OMIcons.home)),
-    BottomBarPage(StressReliefPage(), Icon(OMIcons.healing)),
-    BottomBarPage(StressLevelOverview(false), Icon(OMIcons.tableChart))
+  List<_BottomBarPage> _widgetOptions = [
+    _BottomBarPage(HomePageBody(), Icon(OMIcons.home)),
+    _BottomBarPage(StressReliefPage(), Icon(OMIcons.healing)),
+    _BottomBarPage(StressLevelOverview(false), Icon(OMIcons.tableChart))
   ];
 
   void _onItemTapped(int index) {
@@ -29,9 +29,27 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void loadUser() {
+    Json.readUser('Aethan').then
+      ((value) {
+      setState(() {
+        User.currentUser = value;
+        print(User.currentUser.name);
+      });
+    },
+        onError: (e) {
+          setState(() {
+            User.currentUser = new User('Aethan', 'ajf75@bath.ac.uk', [0, 1], List());
+            Json.saveUser(User.currentUser);
+          });
+        }
+    );
+  }
+
   @override
   void initState() {
     super.initState();
+    loadUser();
     MusicPage.player = AudioPlayer();
   }
 
@@ -98,11 +116,11 @@ class BottomBar extends StatelessWidget {
   }
 }
 
-class BottomBarPage {
+class _BottomBarPage {
   final _page;
   final _icon;
 
-  BottomBarPage(this._page, this._icon);
+  _BottomBarPage(this._page, this._icon);
   get icon => _icon;
   get page => _page;
 }

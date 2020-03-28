@@ -20,23 +20,20 @@ class MusicPage extends StatefulWidget {
   static String previouslyPlayed = '';
   static List<String> musicList = new List();
 
-  MusicPage(this.isWidget, {Key key, this.title}) : super(key: key);
+  MusicPage({@required this.isWidget});
 
   final isWidget;
-  final String title;
 
   @override
-  _MusicPageState createState() => _MusicPageState(isWidget, player);
+  _MusicPageState createState() => _MusicPageState(isWidget);
 }
 
 class _MusicPageState extends State<MusicPage> {
-  _MusicPageState(this.isWidget, this.player);
+  _MusicPageState(this.isWidget);
 
   final isWidget;
 
   VideoPlayerController videoController;
-
-  final AudioPlayer player;
 
   List<String> names = [
     'Relaxing_Green_Nature',
@@ -64,9 +61,9 @@ class _MusicPageState extends State<MusicPage> {
         setState(() {});
       });
 
-    player.onPlayerCompletion.listen((event) async {
+    MusicPage.player.onPlayerCompletion.listen((event) async {
       MusicPage.currentPos == MusicPage.musicList.length - 1 ? MusicPage.currentPos = 0 : MusicPage.currentPos++;
-      MusicPage.loop ? await player.play(MusicPage.currentFile.path, isLocal: true) : _loadMusic(MusicPage.musicList[MusicPage.currentPos]);
+      MusicPage.loop ? await MusicPage.player.play(MusicPage.currentFile.path, isLocal: true) : _loadMusic(MusicPage.musicList[MusicPage.currentPos]);
     });
 
     if (User.currentUser.musicList != null) MusicPage.musicList = User.currentUser.musicList;
@@ -74,7 +71,7 @@ class _MusicPageState extends State<MusicPage> {
 
   @override
   Widget build(BuildContext context) {
-    MusicPage.playing ? player.resume() : player.pause();
+    MusicPage.playing ? MusicPage.player.resume() : MusicPage.player.pause();
 
     return isWidget ? _widget() : _page();
   }
@@ -124,19 +121,12 @@ class _MusicPageState extends State<MusicPage> {
                 ),
               ),
             ),
-            Container(
-              height: 162,
-              width: 288,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                border: Border.all(
-                  width: 5,
-                ),
-                borderRadius: BorderRadius.circular(8.0),
-              ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
               child: videoController.value.initialized ?
-              AspectRatio(
-                aspectRatio: videoController.value.aspectRatio,
+              Container(
+                height: 162.0,
+                width: 162.0 * videoController.value.aspectRatio,
                 child: VideoPlayer(videoController),
               ) : Container(),
             ),
@@ -165,7 +155,6 @@ class _MusicPageState extends State<MusicPage> {
         },
       ),
       onTap: () {
-        player.stop();
         _loadMusic(name);
       },
     );
@@ -174,7 +163,7 @@ class _MusicPageState extends State<MusicPage> {
   Future _loadMusic(String name) async {
     MusicPage.currentFile = new File('${(await getTemporaryDirectory()).path}/$name.mp3');
     await MusicPage.currentFile.writeAsBytes((await _loadAsset(name)).buffer.asUint8List());
-    final result = await player.play(MusicPage.currentFile.path, isLocal: true);
+    final result = await MusicPage.player.play(MusicPage.currentFile.path, isLocal: true);
     setState(() {
       MusicPage.playerSet = MusicPage.playing = result == 1;
       MusicPage.currentlyPlaying = name;

@@ -7,10 +7,6 @@ import 'package:stress_app/screens/stress_relief/music_page.dart';
 import 'package:stress_app/tools/Json.dart';
 
 class HomePageBody extends StatefulWidget {
-  HomePageBody({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _HomePageBodyState createState() => _HomePageBodyState();
 }
@@ -20,7 +16,7 @@ class _HomePageBodyState extends State<HomePageBody> {
   bool changed = false;
   List<Widget> children = [
     StressLevelOverview(true),
-    MusicPage(true),
+    MusicPage(isWidget: true,),
   ];
   List<int> order = [0, 1];
 
@@ -47,7 +43,7 @@ class _HomePageBodyState extends State<HomePageBody> {
         foregroundColor: Color(0xff0c0c0c),
         child: editing ? Icon(OMIcons.save) : Icon(OMIcons.edit),
         onPressed: () {
-          if (editing && changed) {
+          if (changed) {
             Json.saveUser(User.currentUser);
             changed = false;
           }
