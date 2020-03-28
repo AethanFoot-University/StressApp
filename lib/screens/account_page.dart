@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 class AccountPage extends StatelessWidget {
   @override
@@ -12,7 +13,7 @@ class AccountPage extends StatelessWidget {
         child: FloatingActionButton(
           splashColor: Colors.transparent,
           backgroundColor: Colors.purple,
-          child: Icon(Icons.arrow_back),
+          child: Icon(OMIcons.keyboardArrowLeft),
           onPressed: () => Navigator.pop(context),
         ),
       ),

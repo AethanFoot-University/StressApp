@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stress_app/data/User.dart';
 
 import 'package:stress_app/screens/available_activities.dart';
 import 'package:stress_app/screens/graph_view/graph_analysis_view.dart';
@@ -17,19 +18,19 @@ class SideDrawer extends StatefulWidget {
 class _SideDrawerState extends State<SideDrawer> {
   final BuildContext context;
   ScrollController _sc;
+  double headerHeight;
 
   _SideDrawerState(this.context);
 
   @override
   void initState() {
-    _sc = ScrollController(initialScrollOffset: ((MediaQuery.of(this.context).size.height) / 2));
+    headerHeight = MediaQuery.of(context).size.height * 3 / 19.2;
+    _sc = ScrollController(initialScrollOffset: ((MediaQuery.of(context).size.height) / 2) - headerHeight);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    double headerHeight = MediaQuery.of(context).size.height * 3 / 19.2;
-
     return ClipRRect(
       borderRadius: BorderRadius.horizontal(right: Radius.circular(16.0)),
       child: Drawer(
@@ -43,9 +44,19 @@ class _SideDrawerState extends State<SideDrawer> {
               decoration: BoxDecoration(
                 color: Color(0xff424242),
               ),
-              child: DrawerHeader(
-                child: Text(
-                  'Various details',
+              child: UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                  color: Color(0xff424242),
+                ),
+                accountName: Text(
+                  User.currentUser.name,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                accountEmail: Text(
+                  User.currentUser.email,
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -63,7 +74,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   padding: EdgeInsets.zero,
                   children: <Widget>[
                     Container(
-                      height: ((MediaQuery.of(context).size.height) / 2),
+                      height: ((MediaQuery.of(context).size.height) / 2) - headerHeight,
                     ),
                     createTile('Graph Breakdown', GraphAnalysisView()),
                     createTile('Available Activities', AvailableActivities()),
@@ -92,10 +103,8 @@ class _SideDrawerState extends State<SideDrawer> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => page));
-        },
+        onTap: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => page)),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:stress_app/screens/stress_relief/breathe_page.dart';
 import 'package:stress_app/screens/stress_relief/music_page.dart';
 
@@ -33,7 +34,7 @@ class _BodyLayout extends StatelessWidget {
             'To help with stress you can do breathing excercies for 10-20 minutes '
                 'once or twice aday. Trying to do these excercises the same time '
                 'everyday will help build a routine.'),
-        _ReliefWidget(MusicPage(false),
+        _ReliefWidget(MusicPage(isWidget: false,),
             'Soothing Music',
             'Soothing music can help you remove yourself from the world around you '
             'by giving you something to concentrate on.'),
@@ -106,7 +107,7 @@ class _ReliefWidget extends StatelessWidget {
                     ),
                   ),
                   _nextPage ? Icon(
-                    Icons.arrow_right,
+                    OMIcons.keyboardArrowRight,
                     color: Colors.white,
                   ) : SizedBox(height: 0,),
                 ],

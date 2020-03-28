@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 import 'package:stress_app/screens/graph_view/stress_graph.dart';
 import 'package:stress_app/tools/CSVReader.dart';
@@ -29,7 +30,7 @@ class GraphAnalysisView extends StatelessWidget {
         child: FloatingActionButton(
           splashColor: Colors.transparent,
           backgroundColor: Colors.purple,
-          child: Icon(Icons.arrow_back),
+          child: Icon(OMIcons.keyboardArrowLeft),
           onPressed: () => Navigator.pop(context),
         ),
       ),
