@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:stress_app/data/User.dart';
 import 'package:stress_app/screens/home/homepage.dart';
 import 'package:stress_app/tools/Json.dart';
+import 'package:stress_app/tools/unsplash_grabber.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -24,10 +25,7 @@ class _SignInState extends State<SignIn> {
                  borderRadius: BorderRadius.circular(8.0),
                  child: Container(
                    width: MediaQuery.of(context).size.width - 32,
-                   child: Image.asset(
-                     'assets/images/Bugsy.png',
-                     fit: BoxFit.contain,
-                   ),
+                   child: UnsplashGrabber.generateWidget("calm", 'assets/images/Bugsy.png'),
                  ),
                ),
                 SizedBox(
