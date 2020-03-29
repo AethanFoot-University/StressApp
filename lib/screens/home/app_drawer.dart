@@ -71,6 +71,7 @@ class _SideDrawerState extends State<SideDrawer> {
                 ),
                 child: ListView(
                   controller: _sc,
+                  physics: BouncingScrollPhysics(),
                   padding: EdgeInsets.zero,
                   children: <Widget>[
                     Container(
