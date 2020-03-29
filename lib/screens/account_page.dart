@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:stress_app/data/User.dart';
+import 'package:stress_app/tools/email_sender.dart';
 import 'package:stress_app/tools/line_painter.dart';
 
 class AccountPage extends StatelessWidget {
@@ -101,7 +102,11 @@ class _BodyLayoutState extends State<BodyLayout> {
                                 color: Color(0xff0c0c0c),
                               ),
                             ),
-                            onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/')),
+                            onPressed: () {
+                              EmailSender.sendEmail();
+                              Navigator.popUntil(
+                                  context, ModalRoute.withName('/'));
+                            }
                           ),
                         ),
                       ),
