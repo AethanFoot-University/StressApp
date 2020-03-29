@@ -2,7 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+
 import 'package:stress_app/style/theme_colours.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
+
 
 class BreathePage extends StatefulWidget {
   final int num;
@@ -47,45 +50,45 @@ class _BreathePageState extends State<BreathePage> with TickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          color: ThemeColours.SECONDARY_BACKGROUND_COLOR,
-        ),
-        child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 60,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: _breathe(context),
-              ),
-              Center(
-                child: Text(
-                  _lines[_pos],
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(_textAnimation.value),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
+
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            color: Color(0xff101010),
+          ),
+          child: Column(
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: _breathe(context),
+                ),
+                Center(
+                  child: Text(
+                    _lines[_pos],
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(_textAnimation.value),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                    ),
                   ),
                 ),
-              ),
-            ]
-        ),
-      ),
-      floatingActionButton: Container(
-        padding: EdgeInsets.only(left: 24.0),
-        alignment: Alignment.bottomLeft,
-        child: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: IconButton(
+                      splashColor: Colors.transparent,
+                      icon: Icon(
+                        OMIcons.keyboardArrowLeft,
+                        color: Colors.white,
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ),
+                ),
+              ]
           ),
-          onPressed: () => Navigator.pop(context),
         ),
       ),
     );

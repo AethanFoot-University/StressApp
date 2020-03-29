@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:stress_app/screens/home/homepage.dart';
+import 'package:stress_app/screens/sign_in_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,11 +13,10 @@ class MyApp extends StatelessWidget {
     ]);
 
     return MaterialApp(
-      title: 'Stress App',
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: MyHomePage(title: 'Stress App'),
+      home: SignIn(),
     );
   }
 }

@@ -71,9 +71,8 @@ class StressLevelOverview extends StatelessWidget {
       cells.add(
         DataCell(
           Container(
-            width: 30, //SET width
-            decoration: new BoxDecoration(color: stressColor),
-            child: Text("")
+            height: 15.0,
+            decoration: BoxDecoration(color: stressColor),
           )
         )
       );
@@ -81,83 +80,74 @@ class StressLevelOverview extends StatelessWidget {
     return DataRow(cells: cells);
   }
 
-  Widget generateDataTable(BuildContext context) {
+  Future<DataTable> generateDataTable(BuildContext context, double width) {
     List<DataRow> rows = new List<DataRow>();
 
     for(int h =0; h < 24; h++){
       rows.add(generateRow(DATA_COLUMNS.length, "$h:00", context));
     }
 
-    return DataTable(columns: getColumns(), rows: rows, columnSpacing: ((MediaQuery.of(context).size.width - 250) / 9) - 1,);
+    return Future(() => DataTable(columns: getColumns(), rows: rows, columnSpacing: ((width - 250) / 9) - 1,));
   }
 
-  Widget generateStressTable(BuildContext context) => LayoutBuilder(
-    builder: (context, constraints) => SingleChildScrollView(
-      child: Column(
-        children: [
-          const Text(
-            'My Text',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Container(
-            alignment: Alignment.topLeft,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minWidth: constraints.minWidth, maxWidth: MediaQuery.of(context).size.width),
-                child: generateDataTable(context),
+  Widget generateStressTable(BuildContext context, double width) {
+    return FutureBuilder(
+      future: generateDataTable(context, width),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData)
+          return Center(
+            child: Text(
+              'Loading...',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-        ],
-      ),
-    ),
-  );
+          );
+        return ListView(
+          scrollDirection: Axis.vertical,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 16.0),
+              child: Center(
+                child: Text(
+                  'My Text',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            snapshot.data,
+          ],
+        );
+      },
+    );
+  }
 
   final String title;
 
   @override
   Widget build(BuildContext context) {
-    return widgetMode ?
-    widgetVersion(context) :
-    Container(
-      decoration: BoxDecoration(
-        color: ThemeColours.SECONDARY_BACKGROUND_COLOR,
-      ),
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 16,
-          ),
-          Expanded(
-            child: generateStressTable(context),
-          ),
-        ],
-      ),
+
+    return widgetMode ? widget(context) : page(context);
+  }
+
+  Widget page(BuildContext context) {
+    return SafeArea(
+      child: generateStressTable(context, MediaQuery.of(context).size.width),
     );
   }
 
-  Widget widgetVersion(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: ThemeColours.PRIMARY_BACKGROUND_COLOR,
-        ),
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 16,
-            ),
-            Expanded(
-              child: generateStressTable(context),
-            ),
-          ],
-        ),
+  Widget widget(BuildContext context) {
+    return Container(
+      height: 250,
+      decoration: BoxDecoration(
+        color: Color(0xff424242),
+
       ),
+      child: generateStressTable(context, MediaQuery.of(context).size.width - 32),
     );
   }
 }

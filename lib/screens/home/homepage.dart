@@ -1,25 +1,26 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 import 'package:stress_app/screens/home/app_drawer.dart';
 import 'package:stress_app/screens/home/homepage_body.dart';
 import 'package:stress_app/screens/stress_level_overview.dart';
+import 'package:stress_app/screens/stress_relief/music_page.dart';
 import 'package:stress_app/screens/stress_relief/stress_relief_page.dart';
+import 'package:stress_app/data/User.dart';
+import 'package:stress_app/tools/Json.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
-  List<BottomBarPage> _widgetOptions = [
-    BottomBarPage(HomePageBody(), Icon(Icons.home)),
-    BottomBarPage(StressReliefPage(), Icon(Icons.healing)),
-    BottomBarPage(StressLevelOverview(false), Icon(Icons.table_chart))
+  List<_BottomBarPage> _widgetOptions = [
+    _BottomBarPage(HomePageBody(), Icon(OMIcons.home)),
+    _BottomBarPage(StressReliefPage(), Icon(OMIcons.healing)),
+    _BottomBarPage(StressLevelOverview(false), Icon(OMIcons.tableChart))
   ];
 
   void _onItemTapped(int index) {
@@ -28,10 +29,36 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void loadUser() {
+    Json.readUser('Aethan').then
+      ((value) {
+      setState(() {
+        User.currentUser = value;
+        print(User.currentUser.name);
+      });
+    },
+        onError: (e) {
+          setState(() {
+            User.currentUser = new User('Aethan', 'ajf75@bath.ac.uk', [0, 1], List());
+            Json.saveUser(User.currentUser);
+          });
+        }
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadUser();
+    MusicPage.player = AudioPlayer();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return User.currentUser == null ? Center(child: CircularProgressIndicator()):
+    Scaffold(
       drawer: SideDrawer(context),
+      backgroundColor: Color(0xff101010),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex).page,
       ),
@@ -64,7 +91,7 @@ class BottomBar extends StatelessWidget {
     buttons.add(
       IconButton(
         color: Colors.white,
-        icon: Icon(Icons.menu), 
+        icon: Icon(OMIcons.menu),
         onPressed: () {
           Scaffold.of(context).openDrawer();
         },
@@ -75,9 +102,8 @@ class BottomBar extends StatelessWidget {
       bool selected = parent._selectedIndex == i;
       IconButton button = 
       IconButton(
-        color: selected ? Colors.grey : Colors.white,
+        color: selected ? Colors.green : Colors.white,
         splashColor: Colors.transparent,
-        iconSize: selected ? 30 : 24,
         icon: parent._widgetOptions.elementAt(i).icon,
         onPressed: () {
           parent._onItemTapped(i);
@@ -90,11 +116,11 @@ class BottomBar extends StatelessWidget {
   }
 }
 
-class BottomBarPage {
+class _BottomBarPage {
   final _page;
   final _icon;
 
-  BottomBarPage(this._page, this._icon);
+  _BottomBarPage(this._page, this._icon);
   get icon => _icon;
   get page => _page;
 }

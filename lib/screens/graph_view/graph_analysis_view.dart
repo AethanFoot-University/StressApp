@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:stress_app/data/StressLevel.dart';
 import 'package:stress_app/screens/graph_view/date_picker.dart';
+
+import 'package:outline_material_icons/outline_material_icons.dart';
+
 
 import 'package:stress_app/screens/graph_view/stress_graph.dart';
 import 'package:stress_app/style/theme_colours.dart';
@@ -24,8 +28,10 @@ class GraphAnalysisView extends StatelessWidget {
         alignment: Alignment.bottomLeft,
         child: FloatingActionButton(
           splashColor: Colors.transparent,
+
           backgroundColor: ThemeColours.PRIMARY_BUTTON_BACKGROUND,
-          child: Icon(Icons.arrow_back),
+          child: Icon(OMIcons.keyboardArrowLeft),
+
           onPressed: () => Navigator.pop(context),
         ),
       ),
