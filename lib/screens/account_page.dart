@@ -1,46 +1,162 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
+import 'package:stress_app/data/User.dart';
+import 'package:stress_app/tools/line_painter.dart';
 
 class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BodyLayout(context),
-      floatingActionButton: Container(
-        padding: EdgeInsets.only(left: 24.0),
-        alignment: Alignment.bottomLeft,
-        child: FloatingActionButton(
-          splashColor: Colors.transparent,
-          backgroundColor: Colors.purple,
-          child: Icon(OMIcons.keyboardArrowLeft),
-          onPressed: () => Navigator.pop(context),
-        ),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Color(0xff101010),
+        body: BodyLayout(),
       ),
     );
   }
 }
 
-class BodyLayout extends StatelessWidget {
-  final BuildContext parentContext;
+class BodyLayout extends StatefulWidget {
+  _BodyLayoutState createState() => _BodyLayoutState();
+}
 
-  BodyLayout(this.parentContext);
+class _BodyLayoutState extends State<BodyLayout> {
+  bool isDarkMode = true;
+  bool sendInfo = true;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
+      child: Stack(
         children: <Widget>[
-          SizedBox(
-            height: 50,
-          ),
-          Expanded(
-            child: Center(
-              child: Text(
-                  'Ballers Account'
+          main(context),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: IconButton(
+                  splashColor: Colors.transparent,
+                  icon: Icon(
+                    OMIcons.keyboardArrowLeft,
+                    color: Color(0xff0c0c0c),
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                ),
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget main(BuildContext context) {
+    return Container(
+      child: ListView(
+        children: <Widget>[
+          Container(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        '${User.currentUser.name}\n'
+                            '${User.currentUser.email}',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: FlatButton(
+                            splashColor: Colors.transparent,
+                            child: Text(
+                              'Sign out',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xff0c0c0c),
+                              ),
+                            ),
+                            onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/')),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          ListView(
+            shrinkWrap: true,
+            children: <Widget>[
+              ListTile(
+                title: Text(
+                  'App Setting',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                  ),
+                ),
+              ),
+              CustomPaint(
+                painter: LinePainter(),
+              ),
+              SwitchListTile(
+                title: Text(
+                  'Dark Mode',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                value: isDarkMode,
+                onChanged: (val) {
+                  setState(() {
+                    isDarkMode = val;
+                  });
+                },
+              ),
+              SwitchListTile(
+                title: Text(
+                  'Send Stress Information to University',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                value: sendInfo,
+                onChanged: (val) {
+                  setState(() {
+                    sendInfo = val;
+                  });
+                },
+              ),
+            ],
+          )
         ],
       ),
     );

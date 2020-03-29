@@ -307,6 +307,16 @@ class _WidgetState extends State<_Widget> {
     if (await canLaunch(url)) {
       await launch(url, forceWebView: true);
     } else {
+      Scaffold.of(context).showSnackBar(SnackBar(
+        duration: Duration(seconds: 2),
+        content: Text(
+          'This link is not working.',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ));
       throw 'Could not launch $url';
     }
   }

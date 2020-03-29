@@ -85,7 +85,8 @@ class _MusicPageState extends State<MusicPage> {
         child: ListView.separated(
           itemCount: names.length + 1,
           separatorBuilder: (BuildContext context, int index) => Divider(
-            color: Colors.white,
+            color: Colors.grey,
+            thickness: 2.0,
           ),
           itemBuilder: (BuildContext context, int index) {
             return index == 0 ?
