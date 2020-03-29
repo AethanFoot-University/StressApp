@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:stress_app/data/StressLevel.dart';
 import 'dart:math';
 
 import 'package:stress_app/style/theme_colours.dart';
+import 'package:stress_app/tools/CSVReader.dart';
 
 class StressLevelOverview extends StatelessWidget {
   StressLevelOverview(this.widgetMode, {Key key, this.title}) : super(key: key);
@@ -47,7 +49,7 @@ class StressLevelOverview extends StatelessWidget {
     return cols;
   }
 
-  DataRow generateRow(int len, String time, BuildContext context){
+  DataRow generateRow(List<List<double>> values, int hour, BuildContext context){
 
     List<DataCell> cells = new List<DataCell>();
     cells.add(
@@ -55,7 +57,7 @@ class StressLevelOverview extends StatelessWidget {
         Container(
           width: 40,
           child: Text(
-            time,
+            "$hour:00",
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -65,8 +67,12 @@ class StressLevelOverview extends StatelessWidget {
       )
     );
 
-    for(int i = 0; i < len - 1; i++) {
-      var stressColor = COLOR_SCALE[new Random().nextInt(COLOR_SCALE.length)];
+    for(int i = 0; i < values.length; i++) {
+
+      double currentStress = values[i][hour];
+
+      var stressColor = (currentStress !=null)?COLOR_SCALE[max(((COLOR_SCALE.length) * (currentStress/StressLevel.maxLevel.toDouble())).round()-1,0)]
+      :Colors.white;
 
       cells.add(
         DataCell(
@@ -83,9 +89,18 @@ class StressLevelOverview extends StatelessWidget {
   Future<DataTable> generateDataTable(BuildContext context, double width) {
     List<DataRow> rows = new List<DataRow>();
 
-    for(int h =0; h < 24; h++){
-      rows.add(generateRow(DATA_COLUMNS.length, "$h:00", context));
-    }
+
+
+   CSVReader("").getStressLevels().then((levels){
+
+        var thisWeek = StressLevel.GetThisWeek(levels, currentDate: new DateTime.utc(2020, 2, 24));
+
+       for(int h =0; h < 24; h++){
+         rows.add(generateRow(thisWeek, h, context));
+       }
+   });
+
+
 
     return Future(() => DataTable(columns: getColumns(), rows: rows, columnSpacing: ((width - 250) / 9) - 1,));
   }
