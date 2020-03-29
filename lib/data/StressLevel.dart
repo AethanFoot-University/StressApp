@@ -40,7 +40,7 @@ class StressLevel{
       return newLevels;
     }
 
-    static List<List<double>> GetThisWeek(List<StressLevel> levels, {DateTime currentDate=null}){
+    static List<List<StressLevel>> GetThisWeek(List<StressLevel> levels, {DateTime currentDate=null}){
 
       currentDate = (currentDate==null)? DateTime.now() : currentDate;
 
@@ -52,7 +52,7 @@ class StressLevel{
 
       DateTime upperBound = lowerBound.add(new Duration(days: 6));
 
-      List<List<double>> week  = List.generate(7, (i) => List(24), growable: false);
+      List<List<StressLevel>> week  = List.generate(7, (i) => List(24), growable: false);
       print(lowerBound);
 
       DateTime lastDate = null;
@@ -64,7 +64,8 @@ class StressLevel{
           if(lastDate==null){
             lastDate = level.time;
           } else if(lastDate.day!=level.time.day || lastDate.hour!=level.time.hour){
-              week[lastDate.weekday][lastDate.hour] = currentSum/currentCount;
+
+              week[lastDate.weekday][lastDate.hour] = StressLevel(time:lastDate, stressLevel: currentSum/currentCount);
 
               currentCount=0;
               currentSum =0;

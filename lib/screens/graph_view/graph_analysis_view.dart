@@ -11,6 +11,12 @@ import 'package:stress_app/style/theme_colours.dart';
 import 'package:stress_app/tools/CSVReader.dart';
 
 class GraphAnalysisView extends StatelessWidget {
+
+  DateTime currentDate;
+  GraphAnalysisView({this.currentDate=null}){
+    currentDate = (currentDate==null)? DateTime.now() : currentDate;
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -22,7 +28,7 @@ class GraphAnalysisView extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: ThemeColours.SECONDARY_BACKGROUND_COLOR,
-      body: BodyLayout(context),
+      body: BodyLayout(context, currentDate),
       floatingActionButton: Container(
         padding: EdgeInsets.only(left: 24.0),
         alignment: Alignment.bottomLeft,
@@ -41,24 +47,26 @@ class GraphAnalysisView extends StatelessWidget {
 
 class BodyLayout extends StatefulWidget{
 
-  final BuildContext parentContext;
 
-  BodyLayout(this.parentContext, {Key key}): super(key: key);
+
+  final BuildContext parentContext;
+  final DateTime currentDate;
+
+  BodyLayout(this.parentContext, this.currentDate, {Key key}): super(key: key);
 
 
   @override
-  _BodyLayoutState createState() => _BodyLayoutState(parentContext);
+  _BodyLayoutState createState() => _BodyLayoutState(parentContext, currentDate);
 }
 
 class _BodyLayoutState extends State<BodyLayout>{
 
-      final BuildContext context;
-      int _count =0;
-      DateTime currentDate;
 
-      _BodyLayoutState(this.context){
-        print(this.context);
-      }
+      final BuildContext context;
+      final DateTime currentDate;
+
+      _BodyLayoutState(this.context, this.currentDate);
+
       DatePicker _pickerInst = null;
       List<StressLevel> _levels;
 
@@ -67,14 +75,13 @@ class _BodyLayoutState extends State<BodyLayout>{
       @override
       void initState() {
         super.initState();
-        print("Hiu");
       }
         Widget buildText(){
           return RichText(
               text: TextSpan(
                   style: TextStyle(color: ThemeColours.TEXT_PRIMARY_COLOUR, fontSize: 50),
                   children: <TextSpan>[
-                    TextSpan(text: (_count++).toString())
+                    TextSpan(text: ("Stress Breakdown").toString())
                   ]
               )
 
@@ -87,6 +94,10 @@ class _BodyLayoutState extends State<BodyLayout>{
           builder: (context, snapshot){
             if(snapshot.hasData){
               _levels = snapshot.data;
+
+              var day = StressLevel.GetByDay(_levels, currentDate);
+              _drawablelevels = (day.length>0)? day : _drawablelevels;
+
               return buildGraphView();
             } else {
               return buildGraphView();
@@ -101,6 +112,7 @@ class _BodyLayoutState extends State<BodyLayout>{
               children: <Widget>[ SizedBox(height: 30,),
               buildText(),
               StressGraph((_drawablelevels==null)?_levels:_drawablelevels),
+
               Expanded(child: Container()),
               (_pickerInst = (_pickerInst==null)? DatePicker(
 
@@ -108,7 +120,8 @@ class _BodyLayoutState extends State<BodyLayout>{
                 dateChanged: (date, timeline) {
 
                   setState(() {
-                    this._drawablelevels = StressLevel.GetByDay(_levels, date);
+                    var day =  StressLevel.GetByDay(_levels, date);
+                    this._drawablelevels = (day.length>0)?day: null;
 
                   });
                   print(date);

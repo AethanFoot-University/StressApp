@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stress_app/data/StressLevel.dart';
+import 'package:stress_app/screens/graph_view/graph_analysis_view.dart';
+import 'package:stress_app/screens/graph_view/stress_graph.dart';
 import 'dart:math';
 
 import 'package:stress_app/style/theme_colours.dart';
@@ -49,7 +51,7 @@ class StressLevelOverview extends StatelessWidget {
     return cols;
   }
 
-  DataRow generateRow(List<List<double>> values, int hour, BuildContext context){
+  DataRow generateRow(List<List<StressLevel>> values, int hour, List<StressLevel> allLevels,  BuildContext context){
 
     List<DataCell> cells = new List<DataCell>();
     cells.add(
@@ -69,17 +71,61 @@ class StressLevelOverview extends StatelessWidget {
 
     for(int i = 0; i < values.length; i++) {
 
-      double currentStress = values[i][hour];
+      var stress = values[i][hour];
 
-      var stressColor = (currentStress !=null)?COLOR_SCALE[max(((COLOR_SCALE.length) * (currentStress/StressLevel.maxLevel.toDouble())).round()-1,0)]
-      :Colors.white;
-
+      var stressColor = (stress !=null)?COLOR_SCALE[max(((COLOR_SCALE.length) * (stress.stressLevel/StressLevel.maxLevel.toDouble())).round()-1,0)]
+      :Colors.black;
       cells.add(
         DataCell(
           Container(
             height: 15.0,
             decoration: BoxDecoration(color: stressColor),
-          )
+          ), onTap:(stress !=null)?
+
+            ()=>showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            // return object of type Dialog
+
+            return Column(children: <Widget>[
+              RichText(
+                  text: TextSpan(
+                      style: TextStyle(color: ThemeColours.TEXT_PRIMARY_COLOUR, fontSize: 50),
+                      children: <TextSpan>[
+                        TextSpan(text: (stress.time.toUtc()).toString())
+                      ]
+                  )
+
+              ),
+              StressGraph(StressLevel.GetByDay(allLevels, stress.time))
+
+            ]);
+          },
+        )
+
+            :
+            //Else Start
+            ()=>showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            // return object of type Dialog
+            return AlertDialog(
+              title: new Text("We're sorry"),
+              content: new Text("No data was recorded for this time"),
+              actions: <Widget>[
+                // usually buttons at the bottom of the dialog
+                new FlatButton(
+                  child: new Text("Close"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        )
+            //Else end
+
         )
       );
     }
@@ -96,7 +142,7 @@ class StressLevelOverview extends StatelessWidget {
         var thisWeek = StressLevel.GetThisWeek(levels, currentDate: new DateTime.utc(2020, 2, 24));
 
        for(int h =0; h < 24; h++){
-         rows.add(generateRow(thisWeek, h, context));
+         rows.add(generateRow(thisWeek, h, levels,context));
        }
    });
 
@@ -126,7 +172,7 @@ class StressLevelOverview extends StatelessWidget {
               padding: EdgeInsets.only(top: 16.0),
               child: Center(
                 child: Text(
-                  'My Text',
+                  'Stress Overview',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
