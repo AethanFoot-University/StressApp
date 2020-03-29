@@ -45,23 +45,16 @@ class _SideDrawerState extends State<SideDrawer> {
               decoration: BoxDecoration(
                 color:ThemeColours.PRIMARY_BACKGROUND_COLOR,
               ),
-              child: UserAccountsDrawerHeader(
-                decoration: BoxDecoration(
-                  color: Color(0xff424242),
-                ),
-                accountName: Text(
-                  User.currentUser.name,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                accountEmail: Text(
-                  User.currentUser.email,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+              alignment: Alignment.bottomLeft,
+              padding: EdgeInsets.all(16.0),
+              child: Text(
+                '${User.currentUser.name}\n'
+                    '${User.currentUser.email}',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
                 ),
               ),
             ),
@@ -72,6 +65,7 @@ class _SideDrawerState extends State<SideDrawer> {
                 ),
                 child: ListView(
                   controller: _sc,
+                  physics: BouncingScrollPhysics(),
                   padding: EdgeInsets.zero,
                   children: <Widget>[
                     Container(

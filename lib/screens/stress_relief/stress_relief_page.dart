@@ -22,6 +22,7 @@ class _BodyLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      physics: BouncingScrollPhysics(),
       children: <Widget>[
         SizedBox(
           height: MediaQuery.of(context).size.height / 2,
