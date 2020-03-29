@@ -57,6 +57,7 @@ class _HomePageBodyState extends State<HomePageBody> {
           //color: Color(0xff101010),
         ),
         child: ListView.builder(
+          physics: BouncingScrollPhysics(),
           itemCount: children.length + 1,
           itemBuilder: (context, index) {
             if (index == 0) return SizedBox(height: MediaQuery.of(context).size.height / 2,);

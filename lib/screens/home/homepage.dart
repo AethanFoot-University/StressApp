@@ -74,13 +74,16 @@ class BottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomAppBar(
-      child: Ink(
-        color: Color(0xff000000),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: _generateButtons(context),
+    return ClipRRect(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+      child: BottomAppBar(
+        child: Ink(
+          color: Color(0xff000000),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: _generateButtons(context),
+          ),
         ),
       ),
     );
@@ -91,6 +94,7 @@ class BottomBar extends StatelessWidget {
     buttons.add(
       IconButton(
         color: Colors.white,
+        splashColor: Colors.transparent,
         icon: Icon(OMIcons.menu),
         onPressed: () {
           Scaffold.of(context).openDrawer();

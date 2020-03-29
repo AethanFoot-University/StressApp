@@ -49,42 +49,50 @@ class _BreathePageState extends State<BreathePage> with TickerProviderStateMixin
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            color: Color(0xff101010),
-          ),
-          child: Column(
-              children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: _breathe(context),
-                ),
-                Center(
-                  child: Text(
-                    _lines[_pos],
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(_textAnimation.value),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
+        backgroundColor: Color(0xff101010),
+        body: Column(
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: _breathe(context),
+              ),
+              Center(
+                child: Text(
+                  _lines[_pos],
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(_textAnimation.value),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
                   ),
                 ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.bottomLeft,
-                    child: IconButton(
-                      splashColor: Colors.transparent,
-                      icon: Icon(
-                        OMIcons.keyboardArrowLeft,
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Ink(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
                         color: Colors.white,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      onPressed: () => Navigator.pop(context),
+                      child: IconButton(
+                        splashColor: Colors.transparent,
+                        icon: Icon(
+                          OMIcons.keyboardArrowLeft,
+                          color: Color(0xff0c0c0c),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      ),
                     ),
                   ),
                 ),
-              ]
-          ),
+              ),
+            ]
         ),
       ),
     );
