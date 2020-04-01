@@ -7,10 +7,6 @@ import 'package:stress_app/screens/stress_relief/music_page.dart';
 
 import 'package:stress_app/style/theme_colours.dart';
 
-import '../../tools/CSVReader.dart';
-import '../graph_view/stress_graph.dart';
-import '../graph_view/stress_graph.dart';
-
 import 'package:stress_app/tools/Json.dart';
 
 class HomePageBody extends StatefulWidget {
@@ -33,12 +29,10 @@ class _HomePageBodyState extends State<HomePageBody> {
     if (User.currentUser.homeOrder != null) order = User.currentUser.homeOrder;
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      backgroundColor: Color(0xff101010),
+      backgroundColor: ThemeColours.SECONDARY_BACKGROUND_COLOR,
       floatingActionButton: FloatingActionButton(
         mini: true,
         elevation: 0.0,
@@ -48,8 +42,8 @@ class _HomePageBodyState extends State<HomePageBody> {
           borderRadius: BorderRadius.circular(8.0),
         ),
         splashColor: Colors.transparent,
-        backgroundColor: Colors.white,
-        foregroundColor: Color(0xff0c0c0c),
+        backgroundColor: ThemeColours.PRIMARY_BUTTON_BACKGROUND,
+        foregroundColor: ThemeColours.SECONDARY_BUTTON_BACKGROUND,
         child: editing ? Icon(OMIcons.save) : Icon(OMIcons.edit),
         onPressed: () {
           if (changed) {

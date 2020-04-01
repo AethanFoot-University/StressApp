@@ -85,6 +85,7 @@ class _MusicPageState extends State<MusicPage> {
           color: ThemeColours.SECONDARY_BACKGROUND_COLOR,
         ),
         child: ListView.separated(
+          physics: BouncingScrollPhysics(),
           itemCount: names.length + 1,
           separatorBuilder: (BuildContext context, int index) => Divider(
             color: Colors.grey,

@@ -8,6 +8,7 @@ import 'package:stress_app/screens/stress_level_overview.dart';
 import 'package:stress_app/screens/stress_relief/music_page.dart';
 import 'package:stress_app/screens/stress_relief/stress_relief_page.dart';
 import 'package:stress_app/data/User.dart';
+import 'package:stress_app/style/theme_colours.dart';
 import 'package:stress_app/tools/Json.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -58,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return User.currentUser == null ? Center(child: CircularProgressIndicator()):
     Scaffold(
       drawer: SideDrawer(context),
-      backgroundColor: Color(0xff101010),
+      backgroundColor: ThemeColours.SECONDARY_BACKGROUND_COLOR,
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex).page,
       ),
