@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stress_app/data/StressLevel.dart';
-import 'package:stress_app/screens/graph_view/graph_analysis_view.dart';
 import 'package:stress_app/screens/graph_view/stress_graph.dart';
 import 'dart:math';
 
@@ -166,6 +165,7 @@ class StressLevelOverview extends StatelessWidget {
             ),
           );
         return ListView(
+          physics: BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
           children: [
             Padding(
@@ -205,7 +205,7 @@ class StressLevelOverview extends StatelessWidget {
     return Container(
       height: 250,
       decoration: BoxDecoration(
-        color: Color(0xff424242),
+        color: ThemeColours.PRIMARY_BACKGROUND_COLOR,
 
       ),
       child: generateStressTable(context, MediaQuery.of(context).size.width - 32),

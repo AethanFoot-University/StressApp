@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:stress_app/data/User.dart';
 import 'package:stress_app/screens/home/homepage.dart';
-import 'package:stress_app/tools/Json.dart';
+import 'package:stress_app/style/theme_colours.dart';
 import 'package:stress_app/tools/unsplash_grabber.dart';
 
 class SignIn extends StatefulWidget {
@@ -16,7 +15,7 @@ class _SignInState extends State<SignIn> {
     return SafeArea(
       child: Container(
           decoration: BoxDecoration(
-            color: Color(0xff101010),
+            color: ThemeColours.SECONDARY_BACKGROUND_COLOR,
           ),
           child: Center(
             child: Column(

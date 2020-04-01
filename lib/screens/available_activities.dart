@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
+import 'package:stress_app/style/theme_colours.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AvailableActivities extends StatelessWidget {
@@ -9,7 +10,7 @@ class AvailableActivities extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xff101010),
+        backgroundColor: ThemeColours.SECONDARY_BACKGROUND_COLOR,
         body: BodyLayout(),
       ),
     );
@@ -53,7 +54,7 @@ class _BodyLayoutState extends State<BodyLayout> {
                 height: 40,
                 width: 40,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: ThemeColours.PRIMARY_BUTTON_BACKGROUND,
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -61,7 +62,7 @@ class _BodyLayoutState extends State<BodyLayout> {
                   splashColor: Colors.transparent,
                   icon: Icon(
                     OMIcons.keyboardArrowLeft,
-                    color: Color(0xff0c0c0c),
+                    color: ThemeColours.SECONDARY_BUTTON_BACKGROUND,
                   ),
                   onPressed: () => Navigator.pop(context),
                 ),
@@ -224,7 +225,7 @@ class _WidgetState extends State<_Widget> {
         borderRadius: BorderRadius.circular(8.0),
         child: Container(
           decoration: BoxDecoration(
-            color: Color(0xff424242),
+            color: ThemeColours.PRIMARY_BACKGROUND_COLOR,
           ),
           child: Column(
             children: <Widget>[
@@ -276,7 +277,7 @@ class _WidgetState extends State<_Widget> {
                     padding: EdgeInsets.all(32.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: ThemeColours.PRIMARY_BUTTON_BACKGROUND,
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
@@ -286,7 +287,7 @@ class _WidgetState extends State<_Widget> {
                           isBookable ? 'BOOK ON MYSKILLS' : 'MORE INFORMATION',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Color(0xff0c0c0c),
+                            color: ThemeColours.SECONDARY_BUTTON_BACKGROUND,
                             fontSize: 18,
                           ),
                         ),
