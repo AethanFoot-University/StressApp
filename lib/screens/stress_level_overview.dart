@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stress_app/data/StressLevel.dart';
+import 'package:stress_app/screens/graph_view/events_view.dart';
 import 'package:stress_app/screens/graph_view/graph_analysis_view.dart';
 import 'package:stress_app/screens/graph_view/stress_graph.dart';
 import 'dart:math';
@@ -15,8 +16,8 @@ class StressLevelOverview extends StatelessWidget {
   static List<String> DATA_COLUMNS = ["Time", "Monday", "Tuesday",
   "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-  static List<MaterialColor> COLOR_SCALE = [Colors.red, Colors.orange,
-  Colors.green];
+  static List<MaterialColor> COLOR_SCALE = [Colors.green, Colors.orange,
+  Colors.red];
 
   List<DataColumn> getColumns(){
     List<DataColumn> cols = new List<DataColumn>();
@@ -97,7 +98,8 @@ class StressLevelOverview extends StatelessWidget {
                   )
 
               ),
-              StressGraph(StressLevel.GetByDay(allLevels, stress.time))
+              StressGraph(StressLevel.GetByDay(allLevels, stress.time)),
+              EventsView(),
 
             ]);
           },
