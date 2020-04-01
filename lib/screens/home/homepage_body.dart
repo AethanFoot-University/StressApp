@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
 import 'package:stress_app/data/User.dart';
+import 'package:stress_app/screens/home/youtube_embed.dart';
 import 'package:stress_app/screens/stress_level_overview.dart';
 import 'package:stress_app/screens/stress_relief/music_page.dart';
 
@@ -63,7 +64,7 @@ class _HomePageBodyState extends State<HomePageBody> {
           physics: BouncingScrollPhysics(),
           itemCount: children.length + 1,
           itemBuilder: (context, index) {
-            if (index == 0) return SizedBox(height: MediaQuery.of(context).size.height / 2,);
+            if (index == 0) return YoutubeEmbed();
 
             return _HomeWidget(this, children[order[index - 1]], index - 1);
           }

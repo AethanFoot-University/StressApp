@@ -78,6 +78,7 @@ class BottomBar extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       child: BottomAppBar(
+        color: Colors.black,
         child: Ink(
           color: Color(0xff000000),
           child: Row(
